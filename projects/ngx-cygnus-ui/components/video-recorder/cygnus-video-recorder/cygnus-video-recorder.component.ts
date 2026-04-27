@@ -44,6 +44,9 @@ export class CygnusVideoRecorderComponent implements OnDestroy {
   mostrarBotonEnviarGrabacion = input<boolean>(true);
   enviarGrabacion = input<boolean>(false);
 
+  // Nueva variable para controlar el mensaje de estado final
+  estadoFinal: 'enviando' | 'error' | null = null;
+
   constructor() {
     // Definir el efecto que reacciona a cambios
     effect(() => {
@@ -166,17 +169,38 @@ export class CygnusVideoRecorderComponent implements OnDestroy {
     }
   }
 
+  // confirmarEnvio() {
+  //   if (this.videoParaRevisar) {
+  //     this.videoListo.emit(this.videoParaRevisar);
+  //   } else {
+  //     this.noHayVideoGrabado.emit(true);
+  //   }
+  //   this.resetearEstadoCompleto();
+  //   this.reiniciar.emit(true);
+  // }
+
   confirmarEnvio() {
     if (this.videoParaRevisar) {
+      this.estadoFinal = 'enviando';
       this.videoListo.emit(this.videoParaRevisar);
     } else {
+      this.estadoFinal = 'error';
       this.noHayVideoGrabado.emit(true);
     }
+
+    // Damos 2 segundos para que el usuario vea el mensaje antes de limpiar
+    setTimeout(() => {
+      this.limpiarDespuesDeEnvio();
+    }, 2000);
+  }
+
+  descartarGrabacion() {
     this.resetearEstadoCompleto();
     this.reiniciar.emit(true);
   }
 
-  descartarGrabacion() {
+  private limpiarDespuesDeEnvio() {
+    this.estadoFinal = null;
     this.resetearEstadoCompleto();
     this.reiniciar.emit(true);
   }

@@ -1,15 +1,39 @@
 <div class="max-w-2xl mx-auto">
 
-  <!-- Video Live -->
-  @if (mostrarGrabacion && !videoParaRevisar) {
-  <video
-    #videoLive
-    autoplay
-    muted
-    playsinline
-    class="w-full rounded-lg bg-black mb-4 shadow-lg border border-gray-800">
-  </video>
+  @if (estadoFinal === 'enviando') {
+    <div class="flex flex-col items-center justify-center p-12 bg-blue-50 dark:bg-blue-900/20 rounded-xl border-2 border-dashed border-blue-400 animate-in zoom-in duration-300">
+      <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+      <div class="text-blue-700 dark:text-blue-400 font-bold text-xl text-center">
+        Preparando envío de video
+      </div>
+      <div class="text-blue-500 text-sm">Finalizando proceso...</div>
+    </div>
   }
+
+  @if (estadoFinal === 'error') {
+    <div class="flex flex-col items-center justify-center p-12 bg-red-50 dark:bg-red-900/20 rounded-xl border-2 border-dashed border-red-400 animate-in shake-x duration-500">
+      <lib-ngx-cygnus-icons class="mb-2" [size]="'xl'" [textColor]="'red'" [textRoute]="'alert-circle'"/>
+      <div class="text-red-700 dark:text-red-400 font-bold text-xl text-center">
+        No hay video para enviar
+      </div>
+    </div>
+  }
+
+  @if ((estadoFinal !== 'enviando') || !estadoFinal) {
+
+    <!-- Video Live -->
+    @if (mostrarGrabacion && !videoParaRevisar) {
+    <video
+      #videoLive
+      autoplay
+      muted
+      playsinline
+      class="w-full rounded-lg bg-black mb-4 shadow-lg border border-gray-800">
+    </video>
+    }
+
+  }
+
   @if (procesando) {
   <div class="flex flex-col items-center justify-center p-8 animate-pulse">
     <div class="text-blue-600 font-semibold text-lg">Procesando video...</div>
