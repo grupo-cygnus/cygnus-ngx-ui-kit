@@ -52,7 +52,8 @@
             inputGetInteractiveColor() + ' ' +
             inputGetSize() + ' ' +
             (iconPosition()==='left' ? (pseudoIconCLPPhone() ? 'pl-15' : 'pl-9' ) : '') + ' ' +
-            (inputDisabled()? TW_CLASS.INPUT_DISABLED : '')
+            (inputDisabled()? TW_CLASS.INPUT_DISABLED : '') + ' ' +
+            (gradientBorder() ? 'bg-warning-25!'  : '')
           "
           [placeholder]="textPlaceholder()"
           [disabled]="inputDisabled()"
