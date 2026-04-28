@@ -86,7 +86,7 @@
       <button
         (click)="iniciar()"
         [disabled]="grabando"
-        class="w-full md:w-auto flex items-center justify-center bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg font-semibold transition-all disabled:border-gray-200 disabled:bg-gray-300 disabled:text-gray-500 disabled:shadow-none cursor-pointer disabled:cursor-not-allowed">
+        class="w-full md:w-auto flex items-center justify-center bg-on-500 hover:bg-on-600 text-white px-4 py-3 rounded-lg font-semibold transition-all disabled:border-gray-200 disabled:bg-gray-300 disabled:text-gray-500 disabled:shadow-none cursor-pointer disabled:cursor-not-allowed">
         <lib-ngx-cygnus-icons class="me-3"
           [size]="'xl'"
           [textColor]="grabando ? 'gray' : 'white'"
@@ -100,7 +100,7 @@
       <button
         (click)="detener()"
         [disabled]="!grabando"
-        class="w-full md:w-auto flex items-center justify-center bg-red-500 hover:bg-red-600 text-white px-4 py-3 rounded-lg font-semibold transition-all disabled:shadow-none cursor-pointer disabled:cursor-not-allowed">
+        class="w-full md:w-auto flex items-center justify-center bg-off-500 hover:bg-off-600 text-white px-4 py-3 rounded-lg font-semibold transition-all disabled:shadow-none cursor-pointer disabled:cursor-not-allowed">
         <lib-ngx-cygnus-icons class="me-3"
           [size]="'xl'"
           [textColor]="!grabando ? 'white' : 'white'"

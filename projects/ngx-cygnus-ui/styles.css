@@ -196,6 +196,31 @@
   --color-info-500: #2563eb;
   --color-info-600: #1d4ed8;
 
+  --color-on-50:  #edfcf2;
+  --color-on-100: #d2f9de;
+  --color-on-200: #aaf0c4;
+  --color-on-300: #72e3a3;
+  --color-on-400: #3acd7e;
+  --color-on-500: #16b364;
+  --color-on-600: #0a9150;
+  --color-on-700: #087443;
+  --color-on-800: #095c36;
+  --color-on-900: #094b2e;
+  --color-on-950: #032b1b;
+
+  --color-off-50:  #DDB0C0;
+  --color-off-100: #D2ACBA;
+  --color-off-200: #E085A5;
+  --color-off-300: #D17595;
+  --color-off-400: #ED266C;
+  --color-off-500: #E0004D;
+  --color-off-600: #AD003D;
+  --color-off-700: #7A002B;
+  --color-off-800: #4E041E;
+  --color-off-900: #430A1E;
+  --color-off-950: #3D0F1F;
+
+
   /*  Espaciados */
   --cg-space-xxs: 0.25rem;
   --cg-space-xs: 0.5rem;
