@@ -5,7 +5,7 @@ export const TW_CLASS = {
   INPUT_GENERIC: 'border-gray-300 focus:border-primary-700 focus:ring-primary-700',
   INPUT_SUCCESS: '!border-success-500 !focus:border-success-500 !focus:ring-success-500',
   INPUT_WARNING: '!border-warning-500 !focus:border-warning-500 !focus:ring-warning-500',
-  INPUT_ERROR  : '!border-error-500 !focus:border-error-500 !focus:ring-error-500',
+  INPUT_ERROR  : '!border-error-400 !focus:border-error-400 !focus:ring-error-400',
 
   INPUT_DISABLED: 'bg-neutral-50 text-neutral-400 cursor-not-allowed disabled:opacity-60 disabled:pointer-events-none focus:ring-0 focus:bg-gray-50 focus:border-gray-300 focus:opacity-60 focus:shadow-none',
   INPUT_FLOATING: '!pb-2 !pt-6 placeholder:text-transparent disabled:opacity-50 disabled:pointer-events-none focus:pb-2 !focus:pt-6 ![&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2',
@@ -15,13 +15,13 @@ export const TW_CLASS = {
   INPUT_TOP_GENERIC: 'border-gray-300 focus:ring-primary-700 focus:border-primary-700',
   INPUT_TOP_SUCCESS: 'border-success-600 focus:ring-success-700 focus:border-success-700',
   INPUT_TOP_WARNING: 'border-warning-500 focus:ring-warning-500 focus:border-warning-500',
-  INPUT_TOP_ERROR: 'border-error-500 focus:ring-error-500 focus:border-error-500',
+  INPUT_TOP_ERROR: 'border-error-400 focus:ring-error-400 focus:border-error-400',
 
   INPUT_INTERACTIVE_BASE: 'px-4 py-3 placeholder:opacity-0 placeholder:transition-opacity placeholder:duration-200 focus:placeholder:opacity-100',
   INPUT_INTERACTIVE_GENERIC: '',
   INPUT_INTERACTIVE_SUCCESS: 'placeholder:text-gray-300 dark:placeholder:text-gray-500  text-neutral-900 dark:text-white border-success-600 !focus:ring-success-700 !focus:border-success-700 focus:shadow',
   INPUT_INTERACTIVE_WARNING: 'placeholder:text-gray-300 dark:placeholder:text-gray-500  text-neutral-900 dark:text-white border-warning-600 !focus:ring-warning-700 !focus:border-warning-700  focus:shadow',
-  INPUT_INTERACTIVE_ERROR: 'placeholder:text-gray-300 dark:placeholder:text-gray-500  text-neutral-900 dark:text-white border-error-600 !focus:ring-error-700 !focus:border-error-700 focus:shadow',
+  INPUT_INTERACTIVE_ERROR: 'placeholder:text-gray-300 dark:placeholder:text-gray-500  text-neutral-900 dark:text-white border-error-400 !focus:ring-error-400 !focus:border-error-400 focus:shadow',
 
   INPUT_FILE: '!px-0 !py-0 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4 file:cursor-pointer cursor-pointer',
 
@@ -31,20 +31,20 @@ export const TW_CLASS = {
 
   LABEL_FLOATING_SUCCESS: '!text-success-600 !peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500',
   LABEL_FLOATING_WARNING: '!text-warning-600 !peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500',
-  LABEL_FLOATING_ERROR  : '!text-error-600 !peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500',
+  LABEL_FLOATING_ERROR  : '!text-error-400 !peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500',
 
   LABEL_TOP_BASE: 'absolute cursor-text bg-white px-1.5 left-2.5 -top-2.5 placeholder-shown:text-sm text-sm',
   LABEL_TOP_GENERIC: 'text-gray-600 dark:text-white peer-placeholder-shown:text-gray-700 dark:peer-placeholder-shown:text-gray-50',
   LABEL_TOP_SUCCESS: 'text-success-700',
   LABEL_TOP_WARNING: 'text-warning-600',
-  LABEL_TOP_ERROR: 'text-error-600',
+  LABEL_TOP_ERROR: 'text-error-400',
 
   LABEL_INTERACTIVE_BASE: 'absolute bg-white dark:bg-gray-700 cursor-text px-1 left-2.5 -top-2 text-xs scale-90 transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:scale-90 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm rounded-xl',
 
   LABEL_INTERACTIVE_COLOR_BASE   : 'text-gray-600 dark:text-white peer-focus:text-gray-600 dark:peer-focus:text-gray-50 peer-placeholder-shown:text-gray-600 dark:peer-placeholder-shown:text-gray-50',
   LABEL_INTERACTIVE_COLOR_SUCCESS: 'text-success-600 peer-focus:text-success-600 peer-placeholder-shown:text-success-700',
   LABEL_INTERACTIVE_COLOR_WARNING: 'text-warning-600 peer-focus:text-warning-600 peer-placeholder-shown:text-warning-700',
-  LABEL_INTERACTIVE_COLOR_ERROR  : 'text-error-600 peer-focus:text-error-600 peer-placeholder-shown:text-error-700',
+  LABEL_INTERACTIVE_COLOR_ERROR  : 'text-error-400 peer-focus:text-error-400 peer-placeholder-shown:text-error-400',
 
   FIELDSET_LEGEND: 'block mb-1 text-sm font-medium text-gray-900 dark:text-white',
 
@@ -54,7 +54,7 @@ export const TW_CLASS = {
   HINT_TEXT   : 'mt-1 text-sm text-gray-500 dark:text-white',
   HINT_SUCCESS: '!text-success-600',
   HINT_WARNING: '!text-warning-600',
-  HINT_ERROR  : '!text-error-600',
+  HINT_ERROR  : '!text-error-400',
 
   INPUT_SIZE_SM: '!p-2.5',
   INPUT_SIZE_LG: '!p-4',
