@@ -22,7 +22,8 @@
             selGetSize() + ' ' +
             selGetType() + ' ' +
             (isDisabled() ? TW_CLASS.SELECT_DISABLED : '') + ' ' +
-            (control().value === '' || control().value === null ? 'text-gray-300! dark:text-gray-500!' : '')
+            (control().value === '' || control().value === null ? 'text-gray-300! dark:text-gray-500!' : '') + ' ' +
+            (gradientBorder() ? 'bg-warning-25! dark:bg-gray-700!'  : '')
           "
           [disabled]="isDisabled()"
           [autoWidthSelectDirective]="selAutoWidth()"

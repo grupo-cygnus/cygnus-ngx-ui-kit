@@ -57,7 +57,8 @@
             inputGetColor() + ' ' +
             inputGetTopColor() + ' ' +
             inputGetSize() + ' ' +
-            (inputDisabled()? TW_CLASS.INPUT_DISABLED : '')
+            (inputDisabled()? TW_CLASS.INPUT_DISABLED : '') + ' ' +
+            (gradientBorder() ? 'bg-warning-25! dark:bg-gray-700!'  : '')
           "
           [placeholder]="textPlaceholder()"
           [disabled]="inputDisabled()"
