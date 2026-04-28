@@ -1,87 +1,88 @@
 
 <fieldset class="fieldset">
 
-    <label [for]="inputId()"
-      [class]="TW_CLASS.LABEL_BASE"
-    >
-      {{ textLabel() }}
-    </label>
-
-    <div [class]="gradientBorder() ? TW_CLASS.GRADIENT_WRAPPER : TW_CLASS.NORMAL_WRAPPER"><!-- Wrapper condicional para gradient border -->
-      <div [class]="gradientBorder() ? TW_CLASS.GRADIENT_INNER : 'relative'"><!-- Wrapper condicional para gradient border -->
-        <div class="flex">
-          <div class="inline-block" [id]="inputSelectId()">
-            <button
-              [class]="TW_CLASS.DROPDOWN_MENU_FILTER"
-              (click)="toggleInvisiblePhoneDrop()" type="button"
-            >
-              <div class="flex items-center justify-center w-5 h-4 shrink-0">
-                <img [src]="menuSearchIconPhoneDrop()" class="h-4 w-5 object-contain" alt="Bandera" />
-              </div>
-              <span class="ml-1 whitespace-nowrap"  >{{menuSearchTextPhoneDrop()}}</span>
-              <span class="inline-flex dark:hidden">
-                <lib-ngx-cygnus-icons class="inline-flex dark:hidden items-center h-2.5 ms-2.5"
-                [size]="'lg'"
-                [textColor]="'black'"
-                [textRoute]="'chevron-down'"
-              />
-              </span>
-              <span class="hidden dark:inline-flex">
-                <lib-ngx-cygnus-icons class="hidden dark:inline-flex items-center h-2.5 ms-2.5"
-                [size]="'lg'"
-                [textColor]="'white'"
-                [textRoute]="'chevron-down'"
-              />
-              </span>
-            </button>
-            <ul [class]="TW_CLASS.UL_BASE + ' ' + ' max-h-60 overflow-y-auto'"
-              [class.invisible]="isInvisiblePhoneDrop()"
-            >
-              @for (item of menuSearchContentArr(); track $index; let i = $index;) {
-                <li role="menuitem" (click)="selectMenuPhoneDrop(item.value, item.icon, i)"
-                  [class]="TW_CLASS.LI_BASE">
-                  <img [src]="item.icon" class="h-4 w-5 mr-2 object-contain" alt="Bandera" />
-                  <span>{{item.option}}</span>
-                </li>
-              }
-            </ul>
-          </div>
-
-          <input
-            #cygnusInput
-            [id]="inputId()"
-            type="text"
-            [class]="
-              'rounded-r-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:border-primary-700 focus:outline-none focus:ring-primary-700 active:border-primary-700 w-full px-4 py-2.5' + ' ' +
-              inputGetColor() + ' ' +
-              inputGetTopColor() + ' ' +
-              inputGetSize() + ' ' +
-              (inputDisabled()? TW_CLASS.INPUT_DISABLED : '')
-            "
-            [placeholder]="textPlaceholder()"
-            [disabled]="inputDisabled()"
-            [readOnly]="inputDisabled()"
-
-            (input)="setValue(cygnusInput.value)"
-            (blur)="setInputIsBlur(cygnusInput.value)"
-
-            [appMaxLengthTruncate]="useTruncate()"
-            [limit]="truncateLength()"
-            [onlyNumbers]="onlyNumbers()"
-
-            appCustomInputText
-            [customInputTextEnabled]="customInputTextEnabled()"
-            [customInputTextMaxLength]="customInputTextMaxLength()"
-            [customInputTextMinLength]="customInputTextMinLength()"
+  @if (textLabel()!='') {
+  <label [for]="inputId()"
+    [class]="TW_CLASS.LABEL_BASE"
+  >
+    {{ textLabel() }}
+  </label>
+  }
+  <div [class]="gradientBorder() ? TW_CLASS.GRADIENT_WRAPPER : TW_CLASS.NORMAL_WRAPPER"><!-- Wrapper condicional para gradient border -->
+    <div [class]="gradientBorder() ? TW_CLASS.GRADIENT_INNER : 'relative'"><!-- Wrapper condicional para gradient border -->
+      <div class="flex">
+        <div class="inline-block" [id]="inputSelectId()">
+          <button
+            [class]="TW_CLASS.DROPDOWN_MENU_FILTER"
+            (click)="toggleInvisiblePhoneDrop()" type="button"
           >
+            <div class="flex items-center justify-center w-5 h-4 shrink-0">
+              <img [src]="menuSearchIconPhoneDrop()" class="h-4 w-5 object-contain" alt="Bandera" />
+            </div>
+            <span class="ml-1 whitespace-nowrap"  >{{menuSearchTextPhoneDrop()}}</span>
+            <span class="inline-flex dark:hidden">
+              <lib-ngx-cygnus-icons class="inline-flex dark:hidden items-center h-2.5 ms-2.5"
+              [size]="'lg'"
+              [textColor]="'black'"
+              [textRoute]="'chevron-down'"
+            />
+            </span>
+            <span class="hidden dark:inline-flex">
+              <lib-ngx-cygnus-icons class="hidden dark:inline-flex items-center h-2.5 ms-2.5"
+              [size]="'lg'"
+              [textColor]="'white'"
+              [textRoute]="'chevron-down'"
+            />
+            </span>
+          </button>
+          <ul [class]="TW_CLASS.UL_BASE + ' ' + ' max-h-60 overflow-y-auto'"
+            [class.invisible]="isInvisiblePhoneDrop()"
+          >
+            @for (item of menuSearchContentArr(); track $index; let i = $index;) {
+              <li role="menuitem" (click)="selectMenuPhoneDrop(item.value, item.icon, i)"
+                [class]="TW_CLASS.LI_BASE">
+                <img [src]="item.icon" class="h-4 w-5 mr-2 object-contain" alt="Bandera" />
+                <span>{{item.option}}</span>
+              </li>
+            }
+          </ul>
         </div>
 
-      </div><!-- Wrapper condicional para gradient border -->
-    </div><!-- Wrapper condicional para gradient border -->
+        <input
+          #cygnusInput
+          [id]="inputId()"
+          type="text"
+          [class]="
+            'rounded-r-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white focus:border-primary-700 focus:outline-none focus:ring-primary-700 active:border-primary-700 w-full px-4 py-2.5' + ' ' +
+            inputGetColor() + ' ' +
+            inputGetTopColor() + ' ' +
+            inputGetSize() + ' ' +
+            (inputDisabled()? TW_CLASS.INPUT_DISABLED : '')
+          "
+          [placeholder]="textPlaceholder()"
+          [disabled]="inputDisabled()"
+          [readOnly]="inputDisabled()"
 
-    <!-- @if (inputCustomType()!=='base') {
-      <p [class]="TW_CLASS.HINT_TEXT + ' ' + hintGetColor()">{{ textHint() }}</p>
-    } -->
+          (input)="setValue(cygnusInput.value)"
+          (blur)="setInputIsBlur(cygnusInput.value)"
+
+          [appMaxLengthTruncate]="useTruncate()"
+          [limit]="truncateLength()"
+          [onlyNumbers]="onlyNumbers()"
+
+          appCustomInputText
+          [customInputTextEnabled]="customInputTextEnabled()"
+          [customInputTextMaxLength]="customInputTextMaxLength()"
+          [customInputTextMinLength]="customInputTextMinLength()"
+        >
+      </div>
+
+    </div><!-- Wrapper condicional para gradient border -->
+  </div><!-- Wrapper condicional para gradient border -->
+
+  <!-- @if (inputCustomType()!=='base') {
+    <p [class]="TW_CLASS.HINT_TEXT + ' ' + hintGetColor()">{{ textHint() }}</p>
+  } -->
 
   <!-- @if (inputCustomType()!=='base') { -->
     <p [class]="TW_CLASS.HINT_TEXT + ' ' + hintGetColor()">{{ textHint() }}</p>
