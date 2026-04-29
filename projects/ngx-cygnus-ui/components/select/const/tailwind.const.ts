@@ -25,6 +25,6 @@ export const TW_CLASS = {
 
   HINT_TEXT   : 'mt-1 text-sm text-gray-500 dark:text-white',
   HINT_SUCCESS: 'mt-1 text-sm !text-success-600',
-  HINT_ERROR  : 'mt-1 text-sm !text-error-600',
+  HINT_ERROR  : 'mt-1 text-sm text-error-600 dark:text-error-400',
 }
 
