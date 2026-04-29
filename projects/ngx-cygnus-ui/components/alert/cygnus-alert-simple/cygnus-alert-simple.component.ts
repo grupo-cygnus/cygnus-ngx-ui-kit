@@ -35,7 +35,7 @@ export class CygnusAlertSimpleComponent {
     if (type.includes('alert-primary')) return 'blue';
     if (type.includes('alert-red')) return 'red';
     if (type.includes('alert-green')) return 'green';
-    if (type.includes('alert-yellow')) return 'amber';
+    if (type.includes('alert-yellow')) return 'yellow';
     if (type.includes('alert-gray')) return 'secgray';
     if (type.includes('alert-indigo')) return 'indigo';
     return 'blue';

@@ -3,7 +3,7 @@ export const TW_CLASS = {
   ALERT_SIMPLE_PRIMARY: 'text-blue-800 bg-blue-50 dark:bg-gray-700',
   ALERT_SIMPLE_RED: 'text-red-700 bg-red-50 dark:bg-gray-700',
   ALERT_SIMPLE_GREEN: 'text-green-700 bg-green-50 dark:bg-gray-700',
-  ALERT_SIMPLE_YELLOW: 'text-yellow-700 bg-yellow-50 dark:bg-gray-700',
+  ALERT_SIMPLE_YELLOW: 'text-yellow-700 dark:text-warning-300 bg-yellow-50 dark:bg-gray-700',
   ALERT_SIMPLE_GRAY: 'text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700',
   ALERT_SIMPLE_INDIGO: 'text-blue-violet-700 dark:text-white bg-blue-violet-200 dark:bg-blue-violet-600',
 
@@ -11,7 +11,7 @@ export const TW_CLASS = {
   ALERT_SIMPLE_EQUIS_PRIMARY: 'text-blue-700 border-blue-300 dark:border-blue-500 bg-blue-50 dark:bg-gray-700',
   ALERT_SIMPLE_EQUIS_RED: 'text-red-700 border-red-300 dark:border-red-500 bg-red-50 dark:bg-gray-700',
   ALERT_SIMPLE_EQUIS_GREEN: 'text-green-700 border-green-300 dark:border-green-500 bg-green-50 dark:bg-gray-700',
-  ALERT_SIMPLE_EQUIS_YELLOW: 'text-warning-700 bg-warning-50 dark:bg-gray-700 border-warning-300 dark:border-warning-500',
+  ALERT_SIMPLE_EQUIS_YELLOW: 'text-warning-700 dark:text-warning-300 bg-warning-50 dark:bg-gray-700 border-warning-300 dark:border-warning-300',
   ALERT_SIMPLE_EQUIS_GRAY: 'text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-500 bg-gray-50 dark:bg-gray-700',
   ALERT_SIMPLE_EQUIS_INDIGO: 'text-blue-violet-700 dark:text-white bg-blue-violet-200 dark:bg-blue-violet-600',
 
@@ -19,7 +19,7 @@ export const TW_CLASS = {
   ALERT_CONTENT_PRIMARY: 'text-blue-800 border-blue-300 dark:border-blue-500 bg-blue-50 dark:bg-gray-700',
   ALERT_CONTENT_RED: 'text-red-800 border-red-300 dark:border-red-500 bg-red-50 dark:bg-gray-700',
   ALERT_CONTENT_GREEN: 'text-green-800 border-green-300 dark:border-green-500 bg-green-50 dark:bg-gray-700',
-  ALERT_CONTENT_YELLOW: 'text-amber-800 border-amber-300 dark:border-amber-500 bg-amber-50 dark:bg-gray-700',
+  ALERT_CONTENT_YELLOW: 'text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-500 bg-amber-50 dark:bg-gray-700',
   ALERT_CONTENT_GRAY: 'text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-500 bg-gray-50 dark:bg-gray-700',
   ALERT_CONTENT_INDIGO: 'text-blue-violet-700 dark:text-white bg-blue-violet-200 dark:bg-blue-violet-600',
 
@@ -27,7 +27,7 @@ export const TW_CLASS = {
   ALERT_CONTENT_FULL_PRIMARY: 'text-blue-800 border-blue-300 dark:border-blue-500 bg-blue-50 dark:bg-gray-700',
   ALERT_CONTENT_FULL_RED: 'text-red-800 border-red-300 dark:border-red-500 bg-red-50 dark:bg-gray-700',
   ALERT_CONTENT_FULL_GREEN: 'text-green-800 border-green-300 dark:border-green-500 bg-green-50 dark:bg-gray-700',
-  ALERT_CONTENT_FULL_YELLOW: 'text-amber-800 border-amber-300 dark:border-amber-500 bg-amber-50 dark:bg-gray-700',
+  ALERT_CONTENT_FULL_YELLOW: 'text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-500 bg-amber-50 dark:bg-gray-700',
   ALERT_CONTENT_FULL_GRAY: 'text-gray-700 border-gray-300 dark:border-gray-500 bg-gray-50 dark:bg-gray-700',
   ALERT_CONTENT_FULL_INDIGO: 'text-blue-violet-700 dark:text-white bg-blue-violet-200 dark:bg-blue-violet-600',
 
