@@ -107,8 +107,6 @@ export class CygnusMenuPhoneInputComponent implements OnInit, AfterViewInit {
     this.inputId.set(`cg-input-${++CygnusMenuPhoneInputComponent.idCounter}`);
     this.inputSelectId.set(`cg-input-select-${++CygnusMenuPhoneInputComponent.idCounter}`);
     this.codeDataToSelect();
-    console.log('codeDataArr:',this.codeDataArr());
-    console.log('this.menuSearchContentArr():',this.menuSearchContentArr());
   }
 
   ngAfterViewInit() {
