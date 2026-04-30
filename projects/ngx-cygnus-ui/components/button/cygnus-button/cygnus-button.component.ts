@@ -267,6 +267,9 @@ export class CygnusButtonComponent implements OnInit {
     if (this.btnIconColor()==='lightblack') {
       this.btnIconColor.set('white');
     }
+    if (this.btnIconColor()==='seclightblue') {
+      this.btnIconColor.set('lightblack');
+    }
   }
 }
 
