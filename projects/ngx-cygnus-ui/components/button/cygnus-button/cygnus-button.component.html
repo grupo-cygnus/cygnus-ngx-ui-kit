@@ -7,6 +7,7 @@
   [class.bg-transparent]="(!btnPostulaaquiOrange() && btnIconOutlined() && btnIconOutlinedTransparent()) ? true : false"
   [class.bg-white]="(!btnPostulaaquiOrange() && btnIconOutlined() && !btnIconOutlinedTransparent()) ? true : false"
   [ngClass]="gradientButton() ? TW_CLASS.BTN_GRADIENT : ''"
+  [style.border]="gradientButton() ? 'unset !important' : ''"
 >
   @if (btnIconExist && btnIsLoading()) {
     <div [class]="TW_CLASS.BTN_ICON_LOADING + (!btnIconOnly ? ' mr-2 ': ' ') + btnIconLoadingSize() "  role="status" aria-label="loading">
