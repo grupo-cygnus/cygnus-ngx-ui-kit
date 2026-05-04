@@ -1,4 +1,5 @@
 <button
+  #btnRef
   [class]="btnAllClasses()"
   [type]="typeButtonStructure()"
   [disabled]="btnIsDisabled()"
@@ -8,6 +9,7 @@
   [class.bg-white]="(!btnPostulaaquiOrange() && btnIconOutlined() && !btnIconOutlinedTransparent()) ? true : false"
   [ngClass]="gradientButton() ? TW_CLASS.BTN_GRADIENT : ''"
   [style.border]="gradientButton() ? 'unset !important' : ''"
+  (touchend)="onTouchEnd()"
 >
   @if (btnIconExist && btnIsLoading()) {
     <div [class]="TW_CLASS.BTN_ICON_LOADING + (!btnIconOnly ? ' mr-2 ': ' ') + btnIconLoadingSize() "  role="status" aria-label="loading">
@@ -29,11 +31,6 @@
         [textRoute]="btnIconRouteLeft()"
       />
     </div>
-    <!-- <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'mr-2' : ''"
-      [size]="btnIconSize"
-      [textColor]="gradientButton() ? '#F6FEF9' : btnIconColor()"
-      [textRoute]="btnIconRouteLeft()"
-    /> -->
   }
     <ng-content></ng-content>
   @if (btnIconExist && btnIconRouteRight()!=='') {
@@ -51,11 +48,6 @@
         [textRoute]="btnIconRouteRight()"
       />
     </div>
-    <!-- <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'ms-2' : ''"
-      [size]="btnIconSize"
-      [textColor]="gradientButton() ? '#F6FEF9' : btnIconColor()"
-      [textRoute]="btnIconRouteRight()"
-    /> -->
   }
 
 </button>

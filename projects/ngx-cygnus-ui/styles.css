@@ -15,6 +15,15 @@
   }
 }
 
+@layer base {
+  /* Anula el efecto 'sticky' de focus en dispositivos táctiles */
+  @media (pointer: coarse) {
+    button:focus:not(:focus-visible) {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
 
 @theme {
 

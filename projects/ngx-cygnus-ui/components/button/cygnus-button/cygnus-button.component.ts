@@ -1,4 +1,4 @@
-import { Component, effect, input, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, effect, ElementRef, input, OnInit, signal, viewChild, WritableSignal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { IconColorText, IconTextSize, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { IconLoadingSize } from 'ngx-cygnus-ui/types';
@@ -11,6 +11,8 @@ import { TW_CLASS } from '../const/tailwind.const';
 })
 export class CygnusButtonComponent implements OnInit {
   TW_CLASS = TW_CLASS; // esto fue creado para reemplazar @apply de tailwind, ya la documentación de tailwind 4 recomienda no usar @apply y se dice que no funciona muy bien en angular.
+
+  buttonElement = viewChild<ElementRef<HTMLButtonElement>>('btnRef');
 
   typeButtonStructure = input<string>('button');
   btnTypes = input<string>('btn');
@@ -271,6 +273,18 @@ export class CygnusButtonComponent implements OnInit {
       this.btnIconColor.set('lightblack');
     }
   }
+
+  onTouchEnd() {
+    // Simulamos la salida del cursor para devolver el color original
+    setTimeout(() => {
+      this.onMouseLeave();
+      // También quitamos el foco del botón en mobile para evitar el borde extraño
+      if (this.buttonElement()?.nativeElement) {
+        this.buttonElement()?.nativeElement.blur();
+      }
+    }, 100);
+  }
+
 }
 
 
