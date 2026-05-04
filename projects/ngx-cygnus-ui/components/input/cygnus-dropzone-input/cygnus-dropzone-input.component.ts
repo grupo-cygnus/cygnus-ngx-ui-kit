@@ -1,4 +1,4 @@
-import { Component, HostBinding, input, output, signal } from '@angular/core';
+import { Component, ElementRef, HostBinding, input, output, signal, viewChild } from '@angular/core';
 
 import { CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
 
@@ -85,16 +85,51 @@ export class CygnusDropzoneInputComponent {
   // Nuevo Output para que el padre reciba el progreso en tiempo real
   outputProgress = output<number>();
 
+  fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
+  uid = Math.random().toString(36).substring(2);
+
+  // onRemoveFile(event: Event): void {
+  //   event.preventDefault();
+  //   event.stopPropagation(); // Evita que el click llegue al label y abra el selector
+
+  //   this.resetFile();
+  //   this.outputOnRemoveFile.emit();
+
+  //   // Opcional: limpiar el input físico
+  //   const fileInput = document.getElementById('dropzone-file') as HTMLInputElement;
+  //   if (fileInput) fileInput.value = '';
+  // }
+
+  triggerFilePicker(event: Event): void {
+    // Si estamos en modo "eliminar" (iconRight activo), no abrimos el selector
+    if (this.iconRight()) {
+      return;
+    }
+
+    // Abrimos el selector manualmente
+    const inputEl = this.fileInput()?.nativeElement;
+    if (inputEl) {
+      inputEl.click();
+    }
+  }
+
   onRemoveFile(event: Event): void {
     event.preventDefault();
-    event.stopPropagation(); // Evita que el click llegue al label y abra el selector
+    event.stopImmediatePropagation();
+    event.stopPropagation();
 
     this.resetFile();
     this.outputOnRemoveFile.emit();
 
-    // Opcional: limpiar el input físico
-    const fileInput = document.getElementById('dropzone-file') as HTMLInputElement;
-    if (fileInput) fileInput.value = '';
+    const inputEl = this.fileInput()?.nativeElement;
+    if (inputEl) {
+      inputEl.value = '';
+      // Forzamos un ciclo de detección para que iOS vea el input vacío
+      inputEl.type = 'text';
+      setTimeout(() => {
+        inputEl.type = 'file';
+      }, 50);
+    }
   }
 
   onDragOver(event: DragEvent): void {
