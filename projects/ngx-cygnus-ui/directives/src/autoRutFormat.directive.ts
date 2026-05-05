@@ -31,43 +31,6 @@ export class RutFormatDirective {
     }
   }
 
-  // @HostListener('input', ['$event'])
-  // onInput(event: any) {
-  //   if (!this.appRutFormatEnabled()) return;
-
-  //   let value = event.target.value.toUpperCase().replace(/[^0-9K]/g, '');
-  //   // if (!value) return;
-  //   // CAMBIO: Si no hay valor, limpiamos el control y salimos
-  //   if (!value) {
-  //     if (this.control?.control) {
-  //       this.control.control.setValue('', { emitEvent: false });
-  //     }
-  //     return;
-  //   }
-
-  //   value = value.slice(0, 9);
-  //   let formatted = value;
-
-  //   if (value.length > 1) {
-  //     const cuerpo = value.slice(0, -1);
-  //     const dv = value.slice(-1);
-
-  //     if (this.withDots()) {
-  //       formatted = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '-' + dv;
-  //     } else {
-  //       formatted = cuerpo + '-' + dv;
-  //     }
-  //   }
-
-  //   // Si hay un control de Angular (FormControl/ngModel), lo actualizamos
-  //   if (this.control?.control) {
-  //     this.control.control.setValue(formatted, { emitEvent: false });
-  //   } else {
-  //     // Si es un input nativo sin Angular Forms, actualizamos el valor del DOM directamente
-  //     this.el.nativeElement.value = formatted;
-  //   }
-  // }
-
   @HostListener('input', ['$event'])
   onInput(event: any) {
     if (!this.appRutFormatEnabled()) return;
@@ -83,7 +46,6 @@ export class RutFormatDirective {
       input.value = '';
       return;
     }
-
 
     let value = rawValue.toUpperCase().replace(/[^0-9K]/g, '');
 

@@ -32,18 +32,12 @@ export const TW_CLASS = {
   LABEL_FLOATING_SUCCESS: '!peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500 dark:text-white',
   LABEL_FLOATING_WARNING: '!peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500 dark:text-white',
   LABEL_FLOATING_ERROR  : '!peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500 dark:text-white',
-  // LABEL_FLOATING_SUCCESS: '!text-success-600 !peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500',
-  // LABEL_FLOATING_WARNING: '!text-warning-600 !peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500',
-  // LABEL_FLOATING_ERROR  : '!text-error-400 !peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500',
 
   LABEL_TOP_BASE: 'absolute cursor-text bg-white px-1.5 left-2.5 -top-2.5 placeholder-shown:text-sm text-sm',
   LABEL_TOP_GENERIC: 'text-gray-600 dark:text-white peer-placeholder-shown:text-gray-700 dark:peer-placeholder-shown:text-gray-50',
   LABEL_TOP_SUCCESS: 'dark:text-white',
   LABEL_TOP_WARNING: 'dark:text-white',
   LABEL_TOP_ERROR: 'dark:text-white',
-  // LABEL_TOP_SUCCESS: 'text-success-700',
-  // LABEL_TOP_WARNING: 'text-warning-600',
-  // LABEL_TOP_ERROR: 'text-error-400',
 
   LABEL_INTERACTIVE_BASE: 'absolute bg-white dark:bg-gray-700 cursor-text px-1 left-2.5 -top-2 text-xs scale-90 transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:scale-90 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm rounded-xl',
 
@@ -51,9 +45,6 @@ export const TW_CLASS = {
   LABEL_INTERACTIVE_COLOR_SUCCESS: 'dark:text-white',
   LABEL_INTERACTIVE_COLOR_WARNING: 'dark:text-white',
   LABEL_INTERACTIVE_COLOR_ERROR  : 'dark:text-white',
-  // LABEL_INTERACTIVE_COLOR_SUCCESS: 'text-success-600 peer-focus:text-success-600 peer-placeholder-shown:text-success-700',
-  // LABEL_INTERACTIVE_COLOR_WARNING: 'text-warning-600 peer-focus:text-warning-600 peer-placeholder-shown:text-warning-700',
-  // LABEL_INTERACTIVE_COLOR_ERROR  : 'text-error-400 peer-focus:text-error-400 peer-placeholder-shown:text-error-400',
 
   FIELDSET_LEGEND: 'block mb-1 text-sm font-medium text-gray-900 dark:text-white',
 

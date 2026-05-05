@@ -51,8 +51,6 @@ export class CygnusAlertSimpleComponent {
     }).join(' ');
   });
 
-  // --- Tus métodos de ayuda (limpios de efectos secundarios) ---
-
   addTailwindClasses(customClass: string): string {
     switch (customClass) {
       case 'alert-primary': return this.TW_CLASS.ALERT_SIMPLE_PRIMARY;
