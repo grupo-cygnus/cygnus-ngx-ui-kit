@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, input, output, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, input, output, signal, viewChild } from '@angular/core';
 
 import { CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
 
@@ -24,7 +24,8 @@ import { CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
   `,
   host: {
     '[class.w-full]': 'wFull()', // Se vincula directamente a la ejecución de la signal
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CygnusDropzoneInputComponent {
 
@@ -87,18 +88,6 @@ export class CygnusDropzoneInputComponent {
 
   fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');
   uid = Math.random().toString(36).substring(2);
-
-  // onRemoveFile(event: Event): void {
-  //   event.preventDefault();
-  //   event.stopPropagation(); // Evita que el click llegue al label y abra el selector
-
-  //   this.resetFile();
-  //   this.outputOnRemoveFile.emit();
-
-  //   // Opcional: limpiar el input físico
-  //   const fileInput = document.getElementById('dropzone-file') as HTMLInputElement;
-  //   if (fileInput) fileInput.value = '';
-  // }
 
   triggerFilePicker(event: Event): void {
     // Si estamos en modo "eliminar" (iconRight activo), no abrimos el selector
