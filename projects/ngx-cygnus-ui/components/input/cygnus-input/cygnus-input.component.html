@@ -1,134 +1,105 @@
-
 <fieldset class="fieldset">
   @if (inputCustomType()==='fieldset-legend-label' && pseudoIconCLPPhone()===true) {
-    <label [for]="inputId()"
-      [class]="
-        labelGetType() + ' ' +
-        labelColorGetType()
-      "
-    >
+    <label [for]="inputId()" [class]="labelClass()">
       {{ textLabel() }}
     </label>
   }
 
-    @if (!pseudoIconCLPPhone()===true && (inputCustomType()==='fieldset-legend-label' || inputCustomType()==='file') ) {
-      <label [for]="inputId()"
-        [class]="
-          labelGetType() + ' ' +
-          labelColorGetType()
-        "
-      >
-        {{ textLabel() }}
-      </label>
-    }
+  @if (!pseudoIconCLPPhone()===true && (inputCustomType()==='fieldset-legend-label' || inputCustomType()==='file')) {
+    <label [for]="inputId()" [class]="labelClass()">
+      {{ textLabel() }}
+    </label>
+  }
 
-    <div [class]="gradientBorder() ? TW_CLASS.GRADIENT_WRAPPER : TW_CLASS.NORMAL_WRAPPER"><!-- Wrapper condicional para gradient border -->
-      <div [class]="gradientBorder() ? TW_CLASS.GRADIENT_INNER : 'relative'"><!-- Wrapper condicional para gradient border -->
+  <div [class]="wrapperClass()">
+    <div [class]="innerClass()">
 
-        @if (pseudoIconCLPPhone()===true) {
-          <span
-            class="flex items-center mr-2 absolute h-full inset-y-0 !px-3 rounded-none rounded-l-lg element-left  bg-gray-200 dark:bg-gray-700"
-            [class]="gradientBorder() ? 'border-t-2 border-b-2 border-l-0 border-r-2' : 'border border-gray-300 dark:border-gray-600'"
-          >
-            <span [class]="'inset-y-0 flex items-center pointer-events-none start-0  text-sm font-semibold text-gray-600 dark:text-white'">
-              +56
-            </span>
+      @if (pseudoIconCLPPhone()===true) {
+        <span
+          class="flex items-center mr-2 absolute h-full inset-y-0 !px-3 rounded-none rounded-l-lg element-left bg-gray-200 dark:bg-gray-700"
+          [class]="gradientBorder() ? 'border-t-2 border-b-2 border-l-0 border-r-2' : 'border border-gray-300 dark:border-gray-600'"
+        >
+          <span class="inset-y-0 flex items-center pointer-events-none start-0 text-sm font-semibold text-gray-600 dark:text-white">
+            +56
           </span>
-        }
-        <input
-          #cygnusInput
-          [id]="inputId()"
-          [type]="(inputCustomType()==='file') ? 'file': (typePassword() ? 'password' : 'text') "
-          [class]="
-            TW_CLASS.INPUT_BASE +
-            (inputCustomType()!=='base' ? ' peer ' : ' ') +
-            (inputCustomType()==='label-top' ? TW_CLASS.INPUT_TOP_BASE : '') + ' ' +
-            (inputCustomType()==='label-interactive' ? TW_CLASS.LABEL_INTERACTIVE_COLOR_BASE : '') + ' ' +
-            (inputCustomType()==='floating' ? (!iconState() && ( (iconAsset() || pseudoIconCLPPhone() ) ) ? TW_CLASS.INPUT_FLOATING_ICON : TW_CLASS.INPUT_FLOATING)  : '') + ' ' +
-            (inputCustomType()==='file' ? TW_CLASS.INPUT_FILE : '') + ' ' +
-            inputGetColor() + ' ' +
-            inputGetTopColor() + ' ' +
-            inputGetInteractiveColor() + ' ' +
-            inputGetSize() + ' ' +
-            (iconPosition()==='left' ? (pseudoIconCLPPhone() ? 'pl-15' : 'pl-9' ) : '') + ' ' +
-            (inputDisabled()? TW_CLASS.INPUT_DISABLED : '') + ' ' +
-            (gradientBorder() ? 'bg-warning-25! dark:bg-gray-700!'  : '')
-          "
-          [placeholder]="textPlaceholder()"
-          [disabled]="inputDisabled()"
-          [readOnly]="inputDisabled()"
+        </span>
+      }
 
-          (input)="setValue(cygnusInput.value)"
-          (blur)="setInputIsBlur(cygnusInput.value)"
+      <input
+        #cygnusInput
+        [id]="inputId()"
+        [type]="inputType()"
+        [class]="inputClass()"
+        [placeholder]="textPlaceholder()"
+        [disabled]="inputDisabled()"
+        [readOnly]="inputDisabled()"
 
-          [appRutFormat]="isRutFormatActive()"
-          [withDots]="useRutDots()"
+        (input)="setValue(cygnusInput.value)"
+        (blur)="setInputIsBlur(cygnusInput.value)"
 
-          [appMaxLengthTruncate]="useTruncate()"
-          [limit]="truncateLength()"
-          [onlyNumbers]="onlyNumbers()"
+        [appRutFormat]="isRutFormatActive()"
+        [withDots]="useRutDots()"
 
-          appOnlyLetters
-          [onlyLettersEnabled]="isLetterOnly()"
-          [onlyLettersMaxLength]="isLetterOnlyMaxChars()"
-          [onlyLettersMinLength]="isLetterOnlyMinChars()"
+        [appMaxLengthTruncate]="useTruncate()"
+        [limit]="truncateLength()"
+        [onlyNumbers]="onlyNumbers()"
 
-          appEmailFormatter
-          [emailFormatterEnabled]="emailFormatterEnabled()"
+        appOnlyLetters
+        [onlyLettersEnabled]="isLetterOnly()"
+        [onlyLettersMaxLength]="isLetterOnlyMaxChars()"
+        [onlyLettersMinLength]="isLetterOnlyMinChars()"
 
-          appCustomInputText
-          [customInputTextEnabled]="customInputTextEnabled()"
-          [customInputTextMaxLength]="customInputTextMaxLength()"
-          [customInputTextMinLength]="customInputTextMinLength()"
+        appEmailFormatter
+        [emailFormatterEnabled]="emailFormatterEnabled()"
 
-          appTextEmpresa
-          [textEmpresaEnabled]="textEmpresaEnabled()"
-          [textEmpresaMaxLength]="textEmpresaMaxLength()"
-          [textEmpresaMinLength]="textEmpresaMinLength()"
+        appCustomInputText
+        [customInputTextEnabled]="customInputTextEnabled()"
+        [customInputTextMaxLength]="customInputTextMaxLength()"
+        [customInputTextMinLength]="customInputTextMinLength()"
 
-          [value]="inputClearValue() ? '' : (control()?.value ?? '')"
-          autocomplete="one-time-code"
-        > <!-- value al final de las directivas para evitar autocompletado involuntario de las directivas -->
-        @if (inputCustomType()!=='base' && inputCustomType()!=='fieldset-legend-label' && inputCustomType()!=='file' ) {
-          <label [for]="inputId()"
-            [class]="
-              labelGetType() + ' ' +
-              labelColorGetType()
-            "
-          >
-            {{ textLabel() }}
-          </label>
-        }
+        appTextEmpresa
+        [textEmpresaEnabled]="textEmpresaEnabled()"
+        [textEmpresaMaxLength]="textEmpresaMaxLength()"
+        [textEmpresaMinLength]="textEmpresaMinLength()"
 
-        @if (iconAsset()!=='' && iconPosition()==='right') {
-          <div [class]="'absolute flex items-center inset-y-3 end-2 ' + (inputCustomType()==='floating' ? 'h-5': 'h-6')">
-            <lib-ngx-cygnus-icons
-              [size]="iconSize()"
-              [textColor]="iconColor()"
-              [textRoute]="iconAsset()"
-              (click)="notifyIconClicked()"
-            />
-          </div>
-        } @else if (iconAsset()!=='' && iconPosition()==='left') {
-          <div class="absolute flex items-center pointer-events-none ps-2 inset-y-0 start-0">
-            <lib-ngx-cygnus-icons
-              [size]="iconSize()"
-              [textColor]="iconColor()"
-              [textRoute]="iconAsset()"
-              (click)="notifyIconClicked()"
-            />
-          </div>
-        }
+        [value]="inputClearValue() ? '' : (control()?.value ?? '')"
+        autocomplete="one-time-code"
+      >
 
-      </div><!-- Wrapper condicional para gradient border -->
-    </div><!-- Wrapper condicional para gradient border -->
+      @if (inputCustomType()!=='base' && inputCustomType()!=='fieldset-legend-label' && inputCustomType()!=='file') {
+        <label [for]="inputId()" [class]="labelClass()">
+          {{ textLabel() }}
+        </label>
+      }
 
-    @if (!pseudoIconCLPPhone()===true && inputCustomType()!=='base') {
-      <p [class]="TW_CLASS.HINT_TEXT + ' ' + hintGetColor()">{{ textHint() }}</p>
-    }
+      @if (iconAsset()!=='' && iconPosition()==='right') {
+        <div [class]="'absolute flex items-center inset-y-3 end-2 ' + (inputCustomType()==='floating' ? 'h-5': 'h-6')">
+          <lib-ngx-cygnus-icons
+            [size]="iconSize()"
+            [textColor]="iconColor()"
+            [textRoute]="iconAsset()"
+            (click)="notifyIconClicked()"
+          />
+        </div>
+      } @else if (iconAsset()!=='' && iconPosition()==='left') {
+        <div class="absolute flex items-center pointer-events-none ps-2 inset-y-0 start-0">
+          <lib-ngx-cygnus-icons
+            [size]="iconSize()"
+            [textColor]="iconColor()"
+            [textRoute]="iconAsset()"
+            (click)="notifyIconClicked()"
+          />
+        </div>
+      }
+
+    </div>
+  </div>
+
+  @if (!pseudoIconCLPPhone()===true && inputCustomType()!=='base') {
+    <p [class]="hintClass()">{{ textHint() }}</p>
+  }
 
   @if (pseudoIconCLPPhone()===true && inputCustomType()!=='base') {
-    <p [class]="TW_CLASS.HINT_TEXT + ' ' + hintGetColor()">{{ textHint() }}</p>
+    <p [class]="hintClass()">{{ textHint() }}</p>
   }
 </fieldset>
-

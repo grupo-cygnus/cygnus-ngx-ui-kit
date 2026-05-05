@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component, effect, ElementRef, input, OnInit, output, signal, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, computed, effect,
+  ElementRef, input, OnInit, output, signal, viewChild
+} from '@angular/core';
 import { Renderer2, ChangeDetectorRef, inject } from '@angular/core';
 
 import { IconColorText, IconTextSize, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
@@ -33,7 +36,7 @@ import { SelectGeneric } from 'ngx-cygnus-ui/interfaces';
 export class CygnusInputComponent implements OnInit {
   private static idCounter = 0;
 
-  TW_CLASS = TW_CLASS; // esto fue creado para reemplazar @apply de tailwind, ya la documentación de tailwind 4 recomienda no usar @apply y se dice que no funciona muy bien en angular.
+  TW_CLASS = TW_CLASS;
 
   control = input<FormControl<string>>();
   isRutFormatActive = input<boolean>(false);
@@ -44,7 +47,7 @@ export class CygnusInputComponent implements OnInit {
   inputColor = input<InputColor>('base');
   inputSize = input<InputSize>('');
   iconAsset = input<string>('');
-  iconState = input<boolean>(false); // true para identificar el estilo del input cuando es ícono de success/warning/error
+  iconState = input<boolean>(false);
   iconPosition = input<IconPosition>('right');
   iconColor = input<IconColorText>('black');
   iconSize = input<IconTextSize>('lg');
@@ -70,10 +73,9 @@ export class CygnusInputComponent implements OnInit {
 
   gradientBorder = input<boolean>(false);
 
-  // Nuevos controles para la directiva MaxLengthTruncateDirective
   useTruncate = input<boolean>(false);
   truncateLength = input<number>(9);
-  onlyNumbers = input<boolean>(true); // Para activar/desactivar la lógica
+  onlyNumbers = input<boolean>(true);
 
   isLetterOnly = input<boolean>(false);
   isLetterOnlyMaxChars = input<number>(50);
@@ -92,50 +94,113 @@ export class CygnusInputComponent implements OnInit {
   private renderer = inject(Renderer2);
   private cdr = inject(ChangeDetectorRef);
 
+  // ─── Computed signals ────────────────────────────────────────────────────────
+  // Cada computed se recalcula SOLO cuando sus señales de entrada cambian,
+  // eliminando el trabajo redundante que Angular hacía en cada ciclo de CD.
+
+  /** Tipo del <input> nativo — evita la expresión ternaria anidada en el template */
+  inputType = computed<string>(() => {
+    if (this.inputCustomType() === 'file') return 'file';
+    return this.typePassword() ? 'password' : 'text';
+  });
+
+  /** Clase del wrapper externo */
+  wrapperClass = computed<string>(() =>
+    this.gradientBorder() ? TW_CLASS.GRADIENT_WRAPPER : TW_CLASS.NORMAL_WRAPPER
+  );
+
+  /** Clase del wrapper interno */
+  innerClass = computed<string>(() =>
+    this.gradientBorder() ? TW_CLASS.GRADIENT_INNER : 'relative'
+  );
+
+  /** Clase del párrafo de hint */
+  hintClass = computed<string>(() =>
+    `${TW_CLASS.HINT_TEXT} ${this.hintGetColor()}`
+  );
+
+  /** Clase del label (fusiona labelGetType + labelColorGetType) */
+  labelClass = computed<string>(() =>
+    `${this.labelGetType()} ${this.labelColorGetType()}`
+  );
+
+  /**
+   * Clase completa del <input>.
+   * Era la expresión más costosa del template (15+ concatenaciones dinámicas).
+   * Ahora se recalcula solo cuando cambia inputCustomType, inputColor,
+   * iconAsset, iconPosition, inputDisabled o gradientBorder.
+   */
+  inputClass = computed<string>(() => {
+    const type     = this.inputCustomType();
+    const iconPos  = this.iconPosition();
+    const disabled = this.inputDisabled();
+    const gradient = this.gradientBorder();
+    const pseudo   = this.pseudoIconCLPPhone();
+    const hasIcon  = this.iconAsset() !== '';
+
+    const parts: string[] = [TW_CLASS.INPUT_BASE];
+
+    if (type !== 'base') parts.push('peer');
+
+    if (type === 'label-top')         parts.push(TW_CLASS.INPUT_TOP_BASE);
+    if (type === 'label-interactive') parts.push(TW_CLASS.LABEL_INTERACTIVE_COLOR_BASE);
+
+    if (type === 'floating') {
+      parts.push(
+        !this.iconState() && (hasIcon || pseudo)
+          ? TW_CLASS.INPUT_FLOATING_ICON
+          : TW_CLASS.INPUT_FLOATING
+      );
+    }
+
+    if (type === 'file') parts.push(TW_CLASS.INPUT_FILE);
+
+    parts.push(this.inputGetColor());
+    parts.push(this.inputGetTopColor());
+    parts.push(this.inputGetInteractiveColor());
+    parts.push(this.inputGetSize());
+
+    if (iconPos === 'left') parts.push(pseudo ? 'pl-15' : 'pl-9');
+    if (disabled)           parts.push(TW_CLASS.INPUT_DISABLED);
+    if (gradient)           parts.push('bg-warning-25! dark:bg-gray-700!');
+
+    return parts.filter(Boolean).join(' ');
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────────
+
   constructor() {
     effect(() => {
       const debeLimpiar = this.inputClearValue();
-      const inputRef = this.cygnusInput();
-      const controlObj = this.control();
+      const inputRef    = this.cygnusInput();
+      const controlObj  = this.control();
 
       if (debeLimpiar && inputRef) {
         const inputEl = inputRef.nativeElement as HTMLInputElement;
 
-        // 1. Limpiamos el modelo de Angular
         controlObj?.setValue('', { emitEvent: false });
         controlObj?.markAsPristine();
 
-        // 2. EL TRUCO NUCLEAR: "Jittering"
-        // Forzamos al navegador a ver un cambio real (de texto a espacio)
         this.renderer.setProperty(inputEl, 'value', ' ');
 
-        // Usamos un micro-timeout para que el navegador procese el ' ' antes del ''
         setTimeout(() => {
-          // 3. Ahora sí, limpiamos totalmente
           this.renderer.setProperty(inputEl, 'value', '');
           inputEl.value = '';
 
-          // 4. Forzamos la pérdida de foco momentánea
-          // Esto es CRUCIAL en Desktop para limpiar el buffer de "Undo"
           const hadFocus = document.activeElement === inputEl;
           if (hadFocus) inputEl.blur();
 
-          // 5. Notificamos a las directivas con un evento "limpio"
-          inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+          inputEl.dispatchEvent(new Event('input',  { bubbles: true }));
           inputEl.dispatchEvent(new Event('change', { bubbles: true }));
 
-          // 6. Si tenía el foco, se lo devolvemos en el siguiente frame
-          if (hadFocus) {
-            setTimeout(() => inputEl.focus(), 0);
-          }
+          if (hadFocus) setTimeout(() => inputEl.focus(), 0);
 
           this.cdr.detectChanges();
-        }, 10); // 10ms es suficiente para que Desktop se dé cuenta
+        }, 10);
       }
     });
 
     effect(() => {
-      // Reaccionar a valor inicial si cambia externamente
       const val = this.initializeInputValue();
       if (val !== undefined && val !== null) {
         this.control()?.setValue(val);
@@ -144,7 +209,6 @@ export class CygnusInputComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Generar ID único si no se proporciona
     this.inputId.set(`cg-input-${++CygnusInputComponent.idCounter}`);
   }
 
@@ -157,136 +221,105 @@ export class CygnusInputComponent implements OnInit {
     this.inputIsBlur.emit(true);
   }
 
-  setValue(value:string ) {
-    // Si el valor es el mismo, no hacemos nada para evitar bucles
+  setValue(value: string) {
     if (this.control()?.value === value) return;
-
     this.control()?.setValue(value);
     this.control()?.markAsDirty();
     this.control()?.markAsTouched();
     this.inputValueOutput.emit(value);
   }
 
-  inputGetSize():string {
+  inputGetSize(): string {
     switch (this.inputSize()) {
-      case 'lg':
-        return this.TW_CLASS.INPUT_SIZE_LG;
-      case 'sm':
-        return this.TW_CLASS.INPUT_SIZE_SM;
-      default:
-        return '';
+      case 'lg': return TW_CLASS.INPUT_SIZE_LG;
+      case 'sm': return TW_CLASS.INPUT_SIZE_SM;
+      default:   return '';
     }
   }
 
-  inputGetColor():string {
+  inputGetColor(): string {
     switch (this.inputColor()) {
-      case 'success':
-        return this.TW_CLASS.INPUT_SUCCESS;
-      case 'warning':
-        return this.TW_CLASS.INPUT_WARNING;
-      case 'error':
-        return this.TW_CLASS.INPUT_ERROR;
-      default:
-        return this.TW_CLASS.INPUT_GENERIC;
+      case 'success': return TW_CLASS.INPUT_SUCCESS;
+      case 'warning': return TW_CLASS.INPUT_WARNING;
+      case 'error':   return TW_CLASS.INPUT_ERROR;
+      default:        return TW_CLASS.INPUT_GENERIC;
     }
   }
 
-  inputGetTopColor():string {
+  inputGetTopColor(): string {
     switch (this.inputColor()) {
-      case 'success':
-        return this.TW_CLASS.INPUT_TOP_SUCCESS;
-      case 'warning':
-        return this.TW_CLASS.INPUT_TOP_WARNING;
-      case 'error':
-        return this.TW_CLASS.INPUT_TOP_ERROR;
-      default:
-        return this.TW_CLASS.INPUT_TOP_GENERIC;
+      case 'success': return TW_CLASS.INPUT_TOP_SUCCESS;
+      case 'warning': return TW_CLASS.INPUT_TOP_WARNING;
+      case 'error':   return TW_CLASS.INPUT_TOP_ERROR;
+      default:        return TW_CLASS.INPUT_TOP_GENERIC;
     }
   }
 
-  inputGetInteractiveColor():string {
-    if (this.inputCustomType()==='label-interactive') {
+  inputGetInteractiveColor(): string {
+    if (this.inputCustomType() === 'label-interactive') {
       switch (this.inputColor()) {
-        case 'success':
-          return (this.TW_CLASS.INPUT_INTERACTIVE_BASE + ' ' + this.TW_CLASS.INPUT_INTERACTIVE_SUCCESS);
-        case 'warning':
-          return (this.TW_CLASS.INPUT_INTERACTIVE_BASE + ' ' + this.TW_CLASS.INPUT_INTERACTIVE_WARNING);
-        case 'error':
-          return (this.TW_CLASS.INPUT_INTERACTIVE_BASE + ' ' + this.TW_CLASS.INPUT_INTERACTIVE_ERROR);
-        default:
-          return (this.TW_CLASS.INPUT_INTERACTIVE_BASE + ' ' + this.TW_CLASS.INPUT_INTERACTIVE_GENERIC);
+        case 'success': return `${TW_CLASS.INPUT_INTERACTIVE_BASE} ${TW_CLASS.INPUT_INTERACTIVE_SUCCESS}`;
+        case 'warning': return `${TW_CLASS.INPUT_INTERACTIVE_BASE} ${TW_CLASS.INPUT_INTERACTIVE_WARNING}`;
+        case 'error':   return `${TW_CLASS.INPUT_INTERACTIVE_BASE} ${TW_CLASS.INPUT_INTERACTIVE_ERROR}`;
+        default:        return `${TW_CLASS.INPUT_INTERACTIVE_BASE} ${TW_CLASS.INPUT_INTERACTIVE_GENERIC}`;
       }
-    } else return '';
+    }
+    return '';
   }
 
-  labelFloatingGetColor():string {
+  labelFloatingGetColor(): string {
     switch (this.inputColor()) {
-      case 'success':
-        return this.TW_CLASS.LABEL_FLOATING_SUCCESS;
-      case 'warning':
-        return this.TW_CLASS.LABEL_FLOATING_WARNING;
-      case 'error':
-        return this.TW_CLASS.LABEL_FLOATING_ERROR;
-      default:
-        return '';
+      case 'success': return TW_CLASS.LABEL_FLOATING_SUCCESS;
+      case 'warning': return TW_CLASS.LABEL_FLOATING_WARNING;
+      case 'error':   return TW_CLASS.LABEL_FLOATING_ERROR;
+      default:        return '';
     }
   }
 
-  labelTopGetColor():string {
+  labelTopGetColor(): string {
     switch (this.inputColor()) {
-      case 'success':
-        return this.TW_CLASS.LABEL_TOP_SUCCESS;
-      case 'warning':
-        return this.TW_CLASS.LABEL_TOP_WARNING;
-      case 'error':
-        return this.TW_CLASS.LABEL_TOP_ERROR;
-      default:
-        return this.TW_CLASS.LABEL_TOP_BASE;
+      case 'success': return TW_CLASS.LABEL_TOP_SUCCESS;
+      case 'warning': return TW_CLASS.LABEL_TOP_WARNING;
+      case 'error':   return TW_CLASS.LABEL_TOP_ERROR;
+      default:        return TW_CLASS.LABEL_TOP_BASE;
     }
   }
 
-  labelInteractiveGetColor():string {
+  labelInteractiveGetColor(): string {
     switch (this.inputColor()) {
-      case 'success':
-        return this.TW_CLASS.LABEL_INTERACTIVE_COLOR_SUCCESS;
-      case 'warning':
-        return this.TW_CLASS.LABEL_INTERACTIVE_COLOR_WARNING;
-      case 'error':
-        return this.TW_CLASS.LABEL_INTERACTIVE_COLOR_ERROR;
-      default:
-        return this.TW_CLASS.LABEL_INTERACTIVE_COLOR_BASE;
+      case 'success': return TW_CLASS.LABEL_INTERACTIVE_COLOR_SUCCESS;
+      case 'warning': return TW_CLASS.LABEL_INTERACTIVE_COLOR_WARNING;
+      case 'error':   return TW_CLASS.LABEL_INTERACTIVE_COLOR_ERROR;
+      default:        return TW_CLASS.LABEL_INTERACTIVE_COLOR_BASE;
     }
   }
 
-  hintGetColor():string {
+  hintGetColor(): string {
     if (this.hintColor()) {
       switch (this.inputColor()) {
-        case 'success':
-          return this.TW_CLASS.HINT_SUCCESS;
-        case 'warning':
-          return this.TW_CLASS.HINT_WARNING;
-        case 'error':
-          return this.TW_CLASS.HINT_ERROR;
-        default:
-          return '';
+        case 'success': return TW_CLASS.HINT_SUCCESS;
+        case 'warning': return TW_CLASS.HINT_WARNING;
+        case 'error':   return TW_CLASS.HINT_ERROR;
+        default:        return '';
       }
     }
     return '';
   }
 
-  labelColorGetType() {
-    if (this.inputCustomType()==='floating') return this.labelFloatingGetColor();
-    if (this.inputCustomType()==='label-top') return this.labelTopGetColor();
-    if (this.inputCustomType()==='label-interactive') return this.labelInteractiveGetColor();
+  labelColorGetType(): string {
+    const type = this.inputCustomType();
+    if (type === 'floating')          return this.labelFloatingGetColor();
+    if (type === 'label-top')         return this.labelTopGetColor();
+    if (type === 'label-interactive') return this.labelInteractiveGetColor();
     return '';
   }
 
-  labelGetType():string {
-    if (this.inputCustomType()==='fieldset-legend-label') return this.TW_CLASS.FIELDSET_LEGEND;
-    if (this.inputCustomType()==='label-top') return this.TW_CLASS.LABEL_TOP_BASE;
-    if (this.inputCustomType()==='label-interactive') return this.TW_CLASS.LABEL_INTERACTIVE_BASE;
-    if (this.inputCustomType()==='floating') return (this.TW_CLASS.LABEL_BASE + ' ' + this.TW_CLASS.LABEL_FLOATING_BASE);
+  labelGetType(): string {
+    const type = this.inputCustomType();
+    if (type === 'fieldset-legend-label') return TW_CLASS.FIELDSET_LEGEND;
+    if (type === 'label-top')             return TW_CLASS.LABEL_TOP_BASE;
+    if (type === 'label-interactive')     return TW_CLASS.LABEL_INTERACTIVE_BASE;
+    if (type === 'floating')              return `${TW_CLASS.LABEL_BASE} ${TW_CLASS.LABEL_FLOATING_BASE}`;
     return '';
   }
-
 }
