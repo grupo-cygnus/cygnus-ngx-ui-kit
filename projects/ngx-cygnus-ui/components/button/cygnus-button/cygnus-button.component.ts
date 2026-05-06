@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, ElementRef, input, OnInit, signal, viewChild, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, input, OnInit, signal, viewChild, WritableSignal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { IconColorText, IconTextSize, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { IconLoadingSize } from 'ngx-cygnus-ui/types';
@@ -34,6 +34,18 @@ export class CygnusButtonComponent implements OnInit {
   btnPostulaaquiOrange = signal<boolean>(false);
 
   gradientButton = input<boolean>(false);
+
+  // Duración en segundos
+  progressDuration = input<number>(0);
+  // Color de la barra (ej: 'bg-green-500' o un hex '#00ff00')
+  progressColor = input<string>('');
+  // Signal para disparar el efecto
+  runProgress = input<boolean>(false);
+
+  // OPTIMIZACIÓN: Usamos scaleX para que la GPU maneje la animación
+  progressTransform = computed(() => this.runProgress() ? 'scaleX(1)' : 'scaleX(0)');
+
+  progressDurationStyle = computed(() => `${this.progressDuration()}s`);
 
   constructor() {
     effect(() => { // actualizar color del botón cuando cambie this.btnTypes()

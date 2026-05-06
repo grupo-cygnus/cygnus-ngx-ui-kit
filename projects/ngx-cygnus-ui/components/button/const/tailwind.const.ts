@@ -1,7 +1,7 @@
 export const TW_CLASS = {
   // BASE: Se mantiene focus:outline-none para limpiar el clic,
   // pero el anillo (ring) pasa a focus-visible.
-  BTN: 'cursor-pointer flex justify-center items-center border align-middle select-none font-sans font-medium text-center transition-colors duration-300 ease-in rounded-lg shadow-sm hover:shadow-md focus-visible:ring-2 focus:outline-none focus:shadow-none data-[shape=pill]:rounded-full data-[width=full]:w-full px-5 py-2.5 text-base disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed',
+  BTN: 'relative overflow-hidden cursor-pointer flex justify-center items-center border align-middle select-none font-sans font-medium text-center transition-colors duration-300 ease-in rounded-lg shadow-sm hover:shadow-md focus-visible:ring-2 focus:outline-none focus:shadow-none data-[shape=pill]:rounded-full data-[width=full]:w-full px-5 py-2.5 text-base disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed',
 
   BTN_PRIMARY: 'bg-blue-600 border-blue-600 text-blue-50 hover:bg-blue-800 hover:border-blue-800 focus-visible:ring-blue-300',
 

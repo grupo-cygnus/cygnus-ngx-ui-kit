@@ -11,44 +11,56 @@
   [style.border]="gradientButton() ? 'unset !important' : ''"
   (touchend)="onTouchEnd()"
 >
-  @if (btnIconExist && btnIsLoading()) {
-    <div [class]="TW_CLASS.BTN_ICON_LOADING + (!btnIconOnly ? ' mr-2 ': ' ') + btnIconLoadingSize() "  role="status" aria-label="loading">
-      <span class="sr-only">Cargando...</span>
-    </div>
+  @if (progressDuration() > 0) {
+    <div
+      class="absolute inset-0 z-0 origin-left transition-transform ease-linear pointer-events-none"
+      [style.transform]="progressTransform()"
+      [style.transitionDuration]="progressDurationStyle()"
+      [style.backgroundColor]="progressColor().startsWith('bg-') ? '' : progressColor()"
+      [ngClass]="progressColor().startsWith('bg-') ? progressColor() : ''"
+    ></div>
   }
-  @if (btnIconExist && btnIconRouteLeft()!=='') {
-    <div class="hidden dark:flex dark:justify-center">
-      <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'mr-2' : ''"
-        [size]="btnIconSize"
-        [textColor]="gradientButton() ? '#F6FEF9' : (btnIconColor()==='lightblack' ? 'white' : btnIconColor())"
-        [textRoute]="btnIconRouteLeft()"
-      />
-    </div>
-    <div class="flex dark:justify-center dark:hidden">
-      <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'mr-2' : ''"
-        [size]="btnIconSize"
-        [textColor]="gradientButton() ? '#F6FEF9' : btnIconColor()"
-        [textRoute]="btnIconRouteLeft()"
-      />
-    </div>
-  }
-    <ng-content></ng-content>
-  @if (btnIconExist && btnIconRouteRight()!=='') {
-    <div class="hidden dark:flex dark:justify-center">
-      <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'ms-2' : ''"
-        [size]="btnIconSize"
-        [textColor]="gradientButton() ? '#F6FEF9' : (btnIconColor()==='lightblack' ? 'white' : btnIconColor())"
-        [textRoute]="btnIconRouteRight()"
-      />
-    </div>
-    <div class="flex dark:justify-center dark:hidden">
-      <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'ms-2' : ''"
-        [size]="btnIconSize"
-        [textColor]="gradientButton() ? '#F6FEF9' : btnIconColor()"
-        [textRoute]="btnIconRouteRight()"
-      />
-    </div>
-  }
+  <div class="relative z-10 flex items-center justify-center w-full h-full pointer-events-none">
+    @if (btnIconExist && btnIsLoading()) {
+      <div [class]="TW_CLASS.BTN_ICON_LOADING + (!btnIconOnly ? ' mr-2 ': ' ') + btnIconLoadingSize() "  role="status" aria-label="loading">
+        <span class="sr-only">Cargando...</span>
+      </div>
+    }
+    @if (btnIconExist && btnIconRouteLeft()!=='') {
+      <div class="hidden dark:flex dark:justify-center">
+        <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'mr-2' : ''"
+          [size]="btnIconSize"
+          [textColor]="gradientButton() ? '#F6FEF9' : (btnIconColor()==='lightblack' ? 'white' : btnIconColor())"
+          [textRoute]="btnIconRouteLeft()"
+        />
+      </div>
+      <div class="flex dark:justify-center dark:hidden">
+        <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'mr-2' : ''"
+          [size]="btnIconSize"
+          [textColor]="gradientButton() ? '#F6FEF9' : btnIconColor()"
+          [textRoute]="btnIconRouteLeft()"
+        />
+      </div>
+    }
+      <ng-content></ng-content>
+    @if (btnIconExist && btnIconRouteRight()!=='') {
+      <div class="hidden dark:flex dark:justify-center">
+        <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'ms-2' : ''"
+          [size]="btnIconSize"
+          [textColor]="gradientButton() ? '#F6FEF9' : (btnIconColor()==='lightblack' ? 'white' : btnIconColor())"
+          [textRoute]="btnIconRouteRight()"
+        />
+      </div>
+      <div class="flex dark:justify-center dark:hidden">
+        <lib-ngx-cygnus-icons [class]="!btnIconOnly ? 'ms-2' : ''"
+          [size]="btnIconSize"
+          [textColor]="gradientButton() ? '#F6FEF9' : btnIconColor()"
+          [textRoute]="btnIconRouteRight()"
+        />
+      </div>
+    }
+  </div>
+
 
 </button>
 
