@@ -1,10 +1,11 @@
-import { Component, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { IconColorText, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { TW_CLASS } from '../const/tailwind.const';
 
 @Component({
   selector: 'cygnus-alert-simple',
   imports: [NgxCygnusIconsComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-alert-simple.component.html',
   styles: `
     :host { // By default, Angular components behave like inline elements. To allow them to occupy the full width of their parent container, you need to change their display property to block.

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, effect, ElementRef, HostListener, inject, input, OnInit, output, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, HostListener, input, output, signal, viewChild } from '@angular/core';
 import { IconColorText, IconTextSize, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { InputColor, InputSize, InputCustomType } from 'ngx-cygnus-ui/types';
 import { TW_CLASS } from '../const/tailwind.const';
@@ -8,7 +8,7 @@ import {
   CustomInputTextDirective,
 } from 'ngx-cygnus-ui/directives';
 import { CodePhone, SelectIconOption } from 'ngx-cygnus-ui/interfaces';
-import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
+import { SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'cygnus-menu-phone-input',
@@ -20,7 +20,7 @@ import { DomSanitizer, SafeHtml, SafeUrl } from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-menu-phone-input.component.html',
 })
-export class CygnusMenuPhoneInputComponent implements OnInit, AfterViewInit {
+export class CygnusMenuPhoneInputComponent {
   private static idCounter = 0;
 
   TW_CLASS = TW_CLASS; // esto fue creado para reemplazar @apply de tailwind, ya la documentación de tailwind 4 recomienda no usar @apply y se dice que no funciona muy bien en angular.
@@ -73,7 +73,6 @@ export class CygnusMenuPhoneInputComponent implements OnInit, AfterViewInit {
   // input para definir qué código queremos por defecto
   defaultCode = input<string>('+56');
   codeDataArr = input<CodePhone[]>([]);
-  private sanitizer = inject(DomSanitizer);
 
   constructor() {
     effect(() => {
@@ -115,17 +114,8 @@ export class CygnusMenuPhoneInputComponent implements OnInit, AfterViewInit {
     this.cygnusInput()!.nativeElement.textContent = this.initializeInputValue();
   }
 
-  prepareSvgUrl(svgString: string): SafeUrl {
-    // 1. Validamos si ya es un Data URI para no duplicar
-    if (svgString.startsWith('data:image')) {
-      return this.sanitizer.bypassSecurityTrustUrl(svgString);
-    }
-
-    // 2. Si es el string del SVG puro, lo convertimos
-    const dataUri = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgString);
-
-    // 3. IMPORTANTÍSIMO: Usar el sanitizer para que Angular lo permita en el [src]
-    return this.sanitizer.bypassSecurityTrustUrl(dataUri);
+  getFlagUrl(codigo: string): string {
+    return `https://flagcdn.com/w40/${codigo.toLowerCase()}.png`;
   }
 
   codeDataToSelect() {
@@ -135,7 +125,7 @@ export class CygnusMenuPhoneInputComponent implements OnInit, AfterViewInit {
       const mappedOptions: SelectIconOption[] = this.codeDataArr().map(elem => ({
         option: elem.Nombre,
         value: elem.CodigoTelefonico,
-        icon: this.prepareSvgUrl(elem.BanderaSvg)
+        icon: this.getFlagUrl(elem.CodigoISO)
       }));
 
       this.menuSearchContentArr.set(mappedOptions);
@@ -237,6 +227,4 @@ export class CygnusMenuPhoneInputComponent implements OnInit, AfterViewInit {
       if (!this.isInvisiblePhoneDrop()) this.isInvisiblePhoneDrop.set(true); // invisibilizar opciones
     }
   }
-
 }
-

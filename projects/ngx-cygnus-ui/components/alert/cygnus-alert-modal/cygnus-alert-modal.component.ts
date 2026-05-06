@@ -1,4 +1,4 @@
-import { Component, computed, HostListener, input, model, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, HostListener, input, model, output } from '@angular/core';
 
 import { IconColorText, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 
@@ -13,6 +13,7 @@ import { TW_CLASS } from '../const/tailwind.const';
     NgxCygnusIconsComponent,
     CygnusButtonComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-alert-modal.component.html',
 })
 export class CygnusAlertModalComponent {

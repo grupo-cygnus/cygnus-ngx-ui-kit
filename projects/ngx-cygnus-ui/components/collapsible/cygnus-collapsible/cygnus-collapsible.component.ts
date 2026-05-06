@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
 
 @Component({
@@ -6,6 +6,7 @@ import { CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
   imports: [
     CygnusButtonComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-collapsible.component.html',
   styles: `
     :host {

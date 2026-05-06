@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, input, OnInit, signal, viewChild, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, input, OnInit, signal, viewChild, WritableSignal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { IconColorText, IconTextSize, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { IconLoadingSize } from 'ngx-cygnus-ui/types';
@@ -7,6 +7,7 @@ import { TW_CLASS } from '../const/tailwind.const';
 @Component({
   selector: 'cygnus-button',
   imports: [NgxCygnusIconsComponent, NgClass],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'cygnus-button.component.html',
 })
 export class CygnusButtonComponent implements OnInit {

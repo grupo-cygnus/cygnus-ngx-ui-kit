@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, input, OnInit, output, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, input, OnInit, output, signal, viewChild } from '@angular/core';
 import { TW_CLASS } from '../const/tailwind.const';
 import { CheckboxSize, CheckboxType } from 'ngx-cygnus-ui/types';
 import { FormControl } from '@angular/forms';
@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'cygnus-checkbox',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-checkbox.component.html',
   styles: `
     [type='checkbox']:checked {

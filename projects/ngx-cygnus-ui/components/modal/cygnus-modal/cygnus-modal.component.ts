@@ -1,4 +1,4 @@
-import { Component, HostListener, input, model, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, input, model, output } from '@angular/core';
 import { NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 
 @Component({
@@ -6,6 +6,7 @@ import { NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
   imports: [
     NgxCygnusIconsComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-modal.component.html',
 })
 export class CygnusModalComponent {

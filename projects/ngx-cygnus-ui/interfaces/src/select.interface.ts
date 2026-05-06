@@ -18,5 +18,5 @@ export interface SelectCollectOptions {
 export interface SelectIconOption {
   value: any,
   option: string,
-  icon: SafeHtml, // svg || svg url
+  icon: SafeHtml | string, // svg || svg url
 }

@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, OnInit, output, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, OnInit, output, signal, untracked } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { TW_CLASS } from '../const/tailwind.const';
@@ -10,6 +10,7 @@ import { TW_CLASS } from '../const/tailwind.const';
     RouterLink
   ],
   templateUrl: './cygnus-radio-button.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     [type='radio']:checked {
       background-image: var(--radio-svg-icon);

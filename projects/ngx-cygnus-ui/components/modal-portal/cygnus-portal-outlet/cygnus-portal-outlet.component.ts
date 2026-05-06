@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { PortalModule } from '@angular/cdk/portal';
 import { PortalService } from 'ngx-cygnus-ui/services';
 
@@ -7,6 +7,7 @@ import { PortalService } from 'ngx-cygnus-ui/services';
   imports: [
     PortalModule
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (portalService.activePortal()) {
       <div class="fixed inset-0 z-[9999] pointer-events-none">

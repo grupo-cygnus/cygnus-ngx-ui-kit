@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
 import { TW_CLASS } from '../const/tailwind.const';
 
@@ -7,6 +7,7 @@ import { TW_CLASS } from '../const/tailwind.const';
   imports: [
     CygnusButtonComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-card-image.component.html',
 })
 export class CygnusCardImageComponent {

@@ -1,4 +1,4 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
 import { TW_CLASS } from '../const/tailwind.const';
 import { FormControl } from '@angular/forms';
 import { TextareaType } from 'ngx-cygnus-ui/types';
@@ -6,6 +6,7 @@ import { TextareaType } from 'ngx-cygnus-ui/types';
 @Component({
   selector: 'cygnus-textarea',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-textarea.component.html',
 })
 export class CygnusTextareaComponent implements OnInit {

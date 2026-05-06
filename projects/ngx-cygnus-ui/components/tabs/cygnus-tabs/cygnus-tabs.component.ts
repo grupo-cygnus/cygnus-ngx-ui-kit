@@ -1,4 +1,4 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
 import { Tab } from 'ngx-cygnus-ui/interfaces';
 import { RouterLink } from "@angular/router";
 import { NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
@@ -9,6 +9,7 @@ import { NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
     RouterLink,
     NgxCygnusIconsComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-tabs.component.html',
 
 })

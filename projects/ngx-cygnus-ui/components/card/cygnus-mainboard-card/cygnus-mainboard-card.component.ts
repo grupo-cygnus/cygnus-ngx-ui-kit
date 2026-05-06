@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { IconColorText, IconTextSize, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { CygnusButtonLinkComponent } from 'ngx-cygnus-ui/components/button';
 
@@ -8,6 +8,7 @@ import { CygnusButtonLinkComponent } from 'ngx-cygnus-ui/components/button';
     NgxCygnusIconsComponent,
     CygnusButtonLinkComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-mainboard-card.component.html',
 })
 export class CygnusMainboardCardComponent {

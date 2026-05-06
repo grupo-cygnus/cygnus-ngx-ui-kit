@@ -1,10 +1,11 @@
-import { Component, computed, effect, inject, input, signal, untracked  } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal, untracked  } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CarouselItem } from 'ngx-cygnus-ui/interfaces';
 
 @Component({
   selector: 'cygnus-carousel',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-carousel.component.html',
 })
 export class CygnusCarouselComponent {

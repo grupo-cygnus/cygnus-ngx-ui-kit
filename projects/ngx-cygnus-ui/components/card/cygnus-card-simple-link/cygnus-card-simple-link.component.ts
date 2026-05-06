@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { TW_CLASS } from '../const/tailwind.const';
 import { NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { CygnusButtonLinkComponent } from 'ngx-cygnus-ui/components/button';
@@ -9,6 +9,7 @@ import { CygnusButtonLinkComponent } from 'ngx-cygnus-ui/components/button';
     NgxCygnusIconsComponent,
     CygnusButtonLinkComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-card-simple-link.component.html',
 })
 export class CygnusCardSimpleLinkComponent {

@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
@@ -13,6 +13,7 @@ import { DropdownItemType } from 'ngx-cygnus-ui/types';
     NgxCygnusIconsComponent,
     CygnusRadioButtonComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-drowpdown-item.component.html',
 })
 export class CygnusDrowpdownItemComponent {

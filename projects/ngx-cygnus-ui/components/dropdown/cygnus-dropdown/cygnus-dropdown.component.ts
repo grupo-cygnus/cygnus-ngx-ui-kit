@@ -1,4 +1,4 @@
-import { Component, computed, HostListener, input, model, OnInit, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, HostListener, input, model, OnInit, output, signal } from '@angular/core';
 import { IconColorText, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
 import { DropdownItemType } from 'ngx-cygnus-ui/types';
@@ -13,6 +13,7 @@ import { FormControl } from '@angular/forms';
     CygnusButtonComponent,
     CygnusDrowpdownItemComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-dropdown.component.html',
 })
 export class CygnusDropdownComponent implements OnInit {

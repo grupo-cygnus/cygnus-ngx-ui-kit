@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import {
   IconColorText,
   IconTextSize,
@@ -11,6 +11,7 @@ import { TW_CLASS } from '../const/tailwind.const';
   imports: [
     NgxCygnusIconsComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-card-icon-text.component.html',
 })
 export class CygnusCardIconTextComponent {

@@ -1,4 +1,4 @@
-import { Component, input, OnInit, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TW_CLASS } from '../const/tailwind.const';
 import { FormControl } from '@angular/forms';
@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
   imports: [
     RouterLink,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-toggle.component.html',
   styles: `
     .toggle-base:checked::after {

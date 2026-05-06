@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TW_CLASS } from '../const/tailwind.const';
 import { BtnLinkType } from 'ngx-cygnus-ui/types';
@@ -6,6 +6,7 @@ import { BtnLinkType } from 'ngx-cygnus-ui/types';
 @Component({
   selector: 'cygnus-button-link',
   imports: [RouterLink, RouterLinkActive],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-button-link.component.html',
 })
 export class CygnusButtonLinkComponent {

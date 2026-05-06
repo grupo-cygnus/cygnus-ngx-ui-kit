@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 
 @Component({
@@ -6,6 +6,7 @@ import { NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
   imports: [
     NgxCygnusIconsComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-accordion.component.html',
 })
 export class CygnusAccordionComponent {

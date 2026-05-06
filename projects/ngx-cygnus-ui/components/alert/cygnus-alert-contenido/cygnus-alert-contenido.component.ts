@@ -1,4 +1,4 @@
-import { Component, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { IconColorText, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { TW_CLASS } from '../const/tailwind.const';
 import { CygnusButtonComponent, } from 'ngx-cygnus-ui/components/button';
@@ -9,6 +9,7 @@ import { CygnusButtonComponent, } from 'ngx-cygnus-ui/components/button';
     NgxCygnusIconsComponent,
     CygnusButtonComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-alert-contenido.component.html',
 })
 export class CygnusAlertContenidoComponent {

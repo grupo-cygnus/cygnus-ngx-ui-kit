@@ -1,4 +1,4 @@
-import { Component, input, model, OnInit, output, signal, HostListener } from '@angular/core';
+import { Component, input, model, OnInit, output, signal, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
@@ -13,6 +13,7 @@ import { SelectGeneric } from 'ngx-cygnus-ui/interfaces';
     NgxCygnusIconsComponent,
     CygnusBadgeComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-search-select.component.html',
 })
 export class CygnusSearchSelectComponent implements OnInit {

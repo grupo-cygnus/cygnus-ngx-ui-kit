@@ -1,4 +1,4 @@
-import { Component, effect, input, model, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, model, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
 import { SidebarItem } from 'ngx-cygnus-ui/interfaces';
@@ -9,6 +9,7 @@ import { SidebarItem } from 'ngx-cygnus-ui/interfaces';
     CygnusButtonComponent,
     RouterLink,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-mainboard-sidebar.component.html',
 })
 export class CygnusMainboardSidebarComponent {

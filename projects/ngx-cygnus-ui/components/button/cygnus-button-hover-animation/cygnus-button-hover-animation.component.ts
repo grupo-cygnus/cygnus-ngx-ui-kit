@@ -1,4 +1,4 @@
-import { Component, effect, input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, OnInit, signal } from '@angular/core';
 import { IconColorText, IconTextSize, NgxCygnusIconsComponent } from '@cygnus/ngx-cygnus-icons';
 import { BtnAnimationOption } from 'ngx-cygnus-ui/types';
 import { TW_CLASS } from '../const/tailwind.const';
@@ -6,6 +6,7 @@ import { TW_CLASS } from '../const/tailwind.const';
 @Component({
   selector: 'cygnus-button-hover-animation',
   imports: [NgxCygnusIconsComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cygnus-button-hover-animation.component.html',
 })
 export class CygnusButtonHoverAnimationComponent implements OnInit {
