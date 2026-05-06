@@ -17,7 +17,7 @@ export const TW_CLASS = {
   INPUT_TOP_WARNING: 'border-warning-500 focus:ring-warning-500 focus:border-warning-500',
   INPUT_TOP_ERROR: 'border-error-400 focus:ring-error-400 focus:border-error-400',
 
-  INPUT_INTERACTIVE_BASE: 'px-4 py-3 placeholder:opacity-0 placeholder:transition-opacity placeholder:duration-150 focus:placeholder:opacity-100',
+  INPUT_INTERACTIVE_BASE: 'px-4 py-3 placeholder:opacity-0 placeholder:transition-opacity placeholder:duration-150 focus:placeholder:opacity-100 text-neutral-900 dark:text-white',
   INPUT_INTERACTIVE_GENERIC: '',
   INPUT_INTERACTIVE_SUCCESS: 'placeholder:text-gray-300 dark:placeholder:text-gray-500  text-neutral-900 dark:text-white border-success-600 !focus:ring-success-700 !focus:border-success-700 focus:shadow',
   INPUT_INTERACTIVE_WARNING: 'placeholder:text-gray-300 dark:placeholder:text-gray-500  text-neutral-900 dark:text-white border-warning-600 !focus:ring-warning-700 !focus:border-warning-700  focus:shadow',
@@ -27,21 +27,21 @@ export const TW_CLASS = {
 
   LABEL_BASE: 'block mb-1 text-sm font-medium text-gray-900 dark:text-white',
 
-  LABEL_FLOATING_BASE: 'absolute top-0 start-0 !p-4 !pl-3 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-gray-50 peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-gray-50 dark:text-white',
+  LABEL_FLOATING_BASE: 'absolute top-0 start-0 !p-4 !pl-3 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent origin-[0_0] peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:scale-90 peer-focus:translate-x-0.5 peer-focus:-translate-y-1.5 peer-focus:text-gray-500 dark:peer-focus:text-white peer-[:not(:placeholder-shown)]:scale-90 peer-[:not(:placeholder-shown)]:translate-x-0.5 peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500 dark:peer-[:not(:placeholder-shown)]:text-white dark:text-white',
 
   LABEL_FLOATING_SUCCESS: '!peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500 dark:text-white',
   LABEL_FLOATING_WARNING: '!peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500 dark:text-white',
   LABEL_FLOATING_ERROR  : '!peer-focus:text-gray-500 !peer-[:not(:placeholder-shown)]:text-gray-500 dark:text-white',
 
   LABEL_TOP_BASE: 'absolute cursor-text bg-white px-1.5 left-2.5 -top-2.5 placeholder-shown:text-sm text-sm',
-  LABEL_TOP_GENERIC: 'text-gray-600 dark:text-white peer-placeholder-shown:text-gray-700 dark:peer-placeholder-shown:text-gray-50',
+  LABEL_TOP_GENERIC: 'text-gray-600 dark:text-white peer-placeholder-shown:text-gray-700 dark:peer-placeholder-shown:text-white',
   LABEL_TOP_SUCCESS: 'dark:text-white',
   LABEL_TOP_WARNING: 'dark:text-white',
   LABEL_TOP_ERROR: 'dark:text-white',
 
   LABEL_INTERACTIVE_BASE: 'absolute bg-white dark:bg-gray-700 cursor-text px-1 left-2.5 -top-2 text-xs scale-90 transition-transform transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:scale-90 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm rounded-xl',
 
-  LABEL_INTERACTIVE_COLOR_BASE   : 'text-gray-600 dark:text-white peer-focus:text-gray-600 dark:peer-focus:text-gray-50 peer-placeholder-shown:text-gray-600 dark:peer-placeholder-shown:text-gray-50',
+  LABEL_INTERACTIVE_COLOR_BASE   : 'text-gray-600 dark:text-white peer-focus:text-gray-600 dark:peer-focus:text-white peer-placeholder-shown:text-gray-600 dark:peer-placeholder-shown:text-white',
   LABEL_INTERACTIVE_COLOR_SUCCESS: 'dark:text-white',
   LABEL_INTERACTIVE_COLOR_WARNING: 'dark:text-white',
   LABEL_INTERACTIVE_COLOR_ERROR  : 'dark:text-white',
