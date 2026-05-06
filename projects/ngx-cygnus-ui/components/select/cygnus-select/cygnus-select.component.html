@@ -10,7 +10,7 @@
         [class]="gradientBorder() ? TW_CLASS.GRADIENT_INNER : ''"
         [class.relative]="labelStyle()==='label-interactive'"
         [class.mt-6]="labelStyle() === 'animated-legend-label' && (control().value || isFocused())"
-        class="transition-all duration-200"
+        class="transition-colors duration-200"
       >
 
         <select
@@ -42,7 +42,7 @@
 
         @if (labelStyle()==='label-top' && selectLabel()!=='') {
           <label
-            class="absolute left-2 px-1 transition-all duration-200 pointer-events-none origin-left bg-white dark:bg-gray-700 rounded
+            class="absolute left-2 px-1 transition-transform duration-200 pointer-events-none origin-left bg-white dark:bg-gray-700 rounded
             text-gray-500 dark:text-gray-400 -top-2 text-xs scale-90"
           >
             {{selectLabel()}}
@@ -55,7 +55,7 @@
             Y SI SE LLEGA A DES-SELECCIONAR, VUELVA A APARECER
           -->
           <label
-            class="absolute left-2 px-1 transition-all duration-200 pointer-events-none origin-left bg-white dark:bg-gray-700 rounded
+            class="absolute left-2 px-1 transition-transform duration-200 pointer-events-none origin-left bg-white dark:bg-gray-700 rounded
             text-gray-500 dark:text-gray-400 top-2.5 text-sm scale-100"
           >
             {{selectLabel()}}
@@ -64,7 +64,7 @@
 
         @if (labelStyle()==='label-interactive' && selectLabel()!=='') {
           <label
-            class="absolute left-2 px-1 transition-all duration-200 pointer-events-none origin-left bg-white dark:bg-gray-700 rounded
+            class="absolute left-2 px-1 transition-transform duration-200 pointer-events-none origin-left bg-white dark:bg-gray-700 rounded
             text-gray-500 dark:text-gray-400
             peer-focus:-top-2 peer-focus:text-xs peer-focus:scale-90"
             [class]="(control().value !== '' && control().value !== null)
@@ -77,7 +77,7 @@
 
         @if (labelStyle()==='animated-legend-label' && selectLabel()!=='') {
           <label
-            class="absolute transition-all duration-200 pointer-events-none origin-left
+            class="absolute transition-transform duration-200 pointer-events-none origin-left
             peer-focus:-top-6 peer-focus:left-0 peer-focus:text-sm peer-focus:font-medium"
             [class]="((control().value !== '' && control().value !== null) || isFocused())
               ? '-top-6 left-0 text-sm font-medium text-gray-800 dark:text-white'

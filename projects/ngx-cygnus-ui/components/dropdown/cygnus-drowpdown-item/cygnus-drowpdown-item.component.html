@@ -1,7 +1,7 @@
 @if (dropdownItemType()==='simple') {
   <li role="menuitem">
     <a
-      class="flex items-center w-full px-4 py-2.5 text-sm text-gray-800 transition-all cursor-pointer hover:bg-gray-200 focus:bg-gray-100 active:bg-gray-100"
+      class="flex items-center w-full px-4 py-2.5 text-sm text-gray-800 transition-colors duration-300 cursor-pointer hover:bg-gray-200 focus:bg-gray-100 active:bg-gray-100"
       [routerLink]="itemContent()?.routerLinkText"
       (click)="itemSelected()"
     >
@@ -10,7 +10,7 @@
   </li>
 
 } @else if (dropdownItemType()==='radiobutton') {
-  <div class="flex items-center w-full px-4 py-2 text-sm text-gray-800 transition-all cursor-pointer hover:bg-gray-200 focus:bg-gray-100 active:bg-gray-100">
+  <div class="flex items-center w-full px-4 py-2 text-sm text-gray-800 transition-colors duration-300 cursor-pointer hover:bg-gray-200 focus:bg-gray-100 active:bg-gray-100">
     <cygnus-radio-button
       [labelText]="itemContent()?.itemText||''"
       [isDisabled]="false"

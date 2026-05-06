@@ -6,7 +6,7 @@
   <lib-ngx-cygnus-icons
     [class]="
       'inline-flex items-center z-40 ml-2 -mr-1 ' +
-      (btnIsDisabled ? '' : 'transition-all duration-300 group-hover:translate-x-1')
+      (btnIsDisabled ? '' : 'transition-transform duration-300 group-hover:translate-x-1')
     "
     [size]="btnIconSize"
     [textColor]="btnIconColor"
@@ -16,7 +16,7 @@
     <div
       [class]="
         'absolute inset-0 h-[200%] w-[200%] ' +
-        (btnIsDisabled ? '' : ' rotate-45 translate-x-[-70%] transition-all group-hover:scale-100  group-hover:translate-x-[50%] z-20 duration-1000') + ' ' +
+        (btnIsDisabled ? '' : ' rotate-45 translate-x-[-70%] transition-transform group-hover:scale-100  group-hover:translate-x-[50%] z-20 duration-1000') + ' ' +
         (btnTypes()==='btn-secondary'||btnTypes()==='btn-ghost'||btnTypes()==='btn-accent' ? 'bg-blue-300/30' : 'bg-white/30')
       "
     >

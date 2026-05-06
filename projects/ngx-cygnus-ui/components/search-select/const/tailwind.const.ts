@@ -8,5 +8,5 @@ export const TW_CLASS = {
   INPUT_SUCCESS: '!border-green-500 !focus:border-green-500 !focus:ring-green-500 border-green-500 focus:border-green-500 focus:ring-green-500',
   DROPDOWN_MENU_FILTER: 'shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300  dark:border-gray-600 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 h-full',
   UL_BASE: 'absolute z-10 min-w-[180px] overflow-auto rounded-lg border border-slate-200 bg-white dark:bg-gray-700 p-1.5 shadow-lg focus:outline-none',
-  LI_BASE: 'flex items-center w-full p-3 text-sm transition-all rounded-md cursor-pointer text-slate-800 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100',
+  LI_BASE: 'flex items-center w-full p-3 text-sm transition-transform rounded-md cursor-pointer text-slate-800 hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100',
 }
