@@ -1,7 +1,7 @@
 export const TW_CLASS = {
   // BASE: Se mantiene focus:outline-none para limpiar el clic,
   // pero el anillo (ring) pasa a focus-visible.
-  BTN: 'cursor-pointer flex justify-center items-center border align-middle select-none font-sans font-medium text-center transition-all duration-300 ease-in rounded-lg shadow-sm hover:shadow-md focus-visible:ring-2 focus:outline-none focus:shadow-none data-[shape=pill]:rounded-full data-[width=full]:w-full px-5 py-2.5 text-base disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed',
+  BTN: 'cursor-pointer flex justify-center items-center border align-middle select-none font-sans font-medium text-center transition-colors duration-300 ease-in rounded-lg shadow-sm hover:shadow-md focus-visible:ring-2 focus:outline-none focus:shadow-none data-[shape=pill]:rounded-full data-[width=full]:w-full px-5 py-2.5 text-base disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed',
 
   BTN_PRIMARY: 'bg-blue-600 border-blue-600 text-blue-50 hover:bg-blue-800 hover:border-blue-800 focus-visible:ring-blue-300',
 
@@ -35,9 +35,9 @@ export const TW_CLASS = {
 
   BTN_CIRCLE: '!p-2.5 !rounded-full min-w-[40px] inline-flex justify-center items-center gap-x-2 disabled:pointer-events-none',
 
-  BTN_GHOST: 'text-blue-800 bg-transparent border-transparent !shadow-none hover:bg-blue-700/5 hover:border-blue-700/5 !hover:shadow-none focus-visible:ring-blue-300 focus-visible:border-gray-800 transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none',
+  BTN_GHOST: 'text-blue-800 bg-transparent border-transparent !shadow-none hover:bg-blue-700/5 hover:border-blue-700/5 !hover:shadow-none focus-visible:ring-blue-300 focus-visible:border-gray-800 transition-colors disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none',
 
-  BTN_GHOST_GRAY: 'text-gray-600 bg-transparent border-transparent !shadow-none hover:bg-gray-200 hover:border-gray-800/5 !hover:shadow-none focus-visible:ring-blue-300 focus-visible:border-gray-800 transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none',
+  BTN_GHOST_GRAY: 'text-gray-600 bg-transparent border-transparent !shadow-none hover:bg-gray-200 hover:border-gray-800/5 !hover:shadow-none focus-visible:ring-blue-300 focus-visible:border-gray-800 transition-colors disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none',
 
   BTN_OUTLINED: 'border-blue-700 text-blue-700 hover:bg-blue-800 hover:text-blue-50 hover:shadow-md focus-visible:ring-blue-300',
 
