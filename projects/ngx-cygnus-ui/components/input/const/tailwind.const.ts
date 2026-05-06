@@ -1,6 +1,6 @@
 export const TW_CLASS = {
 
-  INPUT_BASE: 'px-3 py-3 block w-full text-sm transition duration-300 bg-white dark:bg-gray-700 border dark:border-gray-600 rounded-lg shadow-sm placeholder:text-gray-300 dark:placeholder:text-gray-500 text-gray-700 dark:text-white focus:ring-1 focus:outline-none focus:shadow text-neutral-900',
+  INPUT_BASE: 'px-3 py-3 block w-full text-sm transition-transform duration-150 bg-white dark:bg-gray-700 border dark:border-gray-600 rounded-lg shadow-sm placeholder:text-gray-300 dark:placeholder:text-gray-500 text-gray-700 dark:text-white focus:ring-1 focus:outline-none focus:shadow text-neutral-900',
 
   INPUT_GENERIC: 'border-gray-300 focus:border-primary-700 focus:ring-primary-700',
   INPUT_SUCCESS: '!border-success-500 !focus:border-success-500 !focus:ring-success-500',
@@ -17,7 +17,7 @@ export const TW_CLASS = {
   INPUT_TOP_WARNING: 'border-warning-500 focus:ring-warning-500 focus:border-warning-500',
   INPUT_TOP_ERROR: 'border-error-400 focus:ring-error-400 focus:border-error-400',
 
-  INPUT_INTERACTIVE_BASE: 'px-4 py-3 placeholder:opacity-0 placeholder:transition-opacity placeholder:duration-200 focus:placeholder:opacity-100',
+  INPUT_INTERACTIVE_BASE: 'px-4 py-3 placeholder:opacity-0 placeholder:transition-opacity placeholder:duration-150 focus:placeholder:opacity-100',
   INPUT_INTERACTIVE_GENERIC: '',
   INPUT_INTERACTIVE_SUCCESS: 'placeholder:text-gray-300 dark:placeholder:text-gray-500  text-neutral-900 dark:text-white border-success-600 !focus:ring-success-700 !focus:border-success-700 focus:shadow',
   INPUT_INTERACTIVE_WARNING: 'placeholder:text-gray-300 dark:placeholder:text-gray-500  text-neutral-900 dark:text-white border-warning-600 !focus:ring-warning-700 !focus:border-warning-700  focus:shadow',
@@ -39,7 +39,7 @@ export const TW_CLASS = {
   LABEL_TOP_WARNING: 'dark:text-white',
   LABEL_TOP_ERROR: 'dark:text-white',
 
-  LABEL_INTERACTIVE_BASE: 'absolute bg-white dark:bg-gray-700 cursor-text px-1 left-2.5 -top-2 text-xs scale-90 transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:scale-90 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm rounded-xl',
+  LABEL_INTERACTIVE_BASE: 'absolute bg-white dark:bg-gray-700 cursor-text px-1 left-2.5 -top-2 text-xs scale-90 transition-transform transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:scale-90 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm rounded-xl',
 
   LABEL_INTERACTIVE_COLOR_BASE   : 'text-gray-600 dark:text-white peer-focus:text-gray-600 dark:peer-focus:text-gray-50 peer-placeholder-shown:text-gray-600 dark:peer-placeholder-shown:text-gray-50',
   LABEL_INTERACTIVE_COLOR_SUCCESS: 'dark:text-white',
@@ -68,5 +68,5 @@ export const TW_CLASS = {
 
   DROPDOWN_MENU_FILTER: 'shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-s-lg hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:focus:ring-gray-600 h-full',
   UL_BASE: 'absolute z-10 min-w-[180px] overflow-auto rounded-lg border border-slate-200 bg-white dark:bg-gray-700 p-1.5 shadow-lg focus:outline-none',
-  LI_BASE: 'flex items-center w-full p-3 text-sm transition-all rounded-md cursor-pointer text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-600 focus:bg-slate-100 dark:bg-slate-700 active:bg-slate-100 dark:active:bg-slate-700',
+  LI_BASE: 'flex items-center w-full p-3 text-sm transition-transform rounded-md cursor-pointer text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-600 focus:bg-slate-100 dark:bg-slate-700 active:bg-slate-100 dark:active:bg-slate-700',
 }
