@@ -1,12 +1,12 @@
 <fieldset class="fieldset">
   @if (inputCustomType()==='fieldset-legend-label' && pseudoIconCLPPhone()===true) {
-    <label [for]="inputId()" [class]="labelClass()">
+    <label [for]="inputId()" [class]="labelClass() + (gradientBorder() ? ' dark:text-white!' : '')">
       {{ textLabel() }}
     </label>
   }
 
   @if (!pseudoIconCLPPhone()===true && (inputCustomType()==='fieldset-legend-label' || inputCustomType()==='file')) {
-    <label [for]="inputId()" [class]="labelClass()">
+    <label [for]="inputId()" [class]="labelClass() + (gradientBorder() ? ' dark:text-white!' : '')">
       {{ textLabel() }}
     </label>
   }
@@ -29,7 +29,7 @@
         #cygnusInput
         [id]="inputId()"
         [type]="inputType()"
-        [class]="inputClass()"
+        [class]="inputClass() + (gradientBorder() ? ' dark:text-white!' : '')"
         [placeholder]="textPlaceholder()"
         [disabled]="inputDisabled()"
         [readOnly]="inputDisabled()"
@@ -67,7 +67,7 @@
       >
 
       @if (inputCustomType()!=='base' && inputCustomType()!=='fieldset-legend-label' && inputCustomType()!=='file') {
-        <label [for]="inputId()" [class]="labelClass()">
+        <label [for]="inputId()" [class]="labelClass()" [class]="labelClass() + (gradientBorder() ? ' dark:text-white!' : '')">
           {{ textLabel() }}
         </label>
       }
