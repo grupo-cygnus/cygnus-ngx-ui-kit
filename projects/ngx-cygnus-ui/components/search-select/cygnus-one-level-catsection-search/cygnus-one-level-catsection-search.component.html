@@ -93,7 +93,7 @@
 
 @if (!isDisabled()) {
 <ul
-  class="absolute mt-1 bg-white dark:bg-gray-700 border border-slate-200 dark:border-gray-600 focus:outline-none min-w-[180px] overflow-auto rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto"
+  class="absolute mt-1 bg-white dark:bg-gray-700 border border-slate-200 dark:border-gray-600 focus:outline-none min-w-[180px] overflow-auto rounded-lg shadow-lg z-20 max-h-60 overflow-y-auto"
   [style.width.px]="targetSelectSearchDiv.offsetWidth"
   [class.invisible]="isInvisible()"
   [id]="ulShowSecOptId()"
@@ -104,10 +104,10 @@
     @for (sec of dataEntries[$any(cat.key)] | keyvalue; track $index) {
 
       @if (setFilteredOptions(sec.value)) {
-        <li class="bg-gray-200 font-semibold p-1.5 dark:text-gray-600" >{{cat.key + ' / ' + sec.key }}</li>
+        <li class="z-20 bg-gray-200 font-semibold p-1.5 dark:text-gray-600" >{{cat.key + ' / ' + sec.key }}</li>
         @for (op of dataFilteredEntries; track op[categoryIdItem()]) {
           <li
-            class="p-1.5"
+            class="z-20 p-1.5"
             [class]="markAsSelected(op) ? 'bg-cygnus-300' : 'dark:text-white hover:bg-gray-100 dark:hover:bg-gray-500'"
             (click)="onItemSelected(op)"
           >{{ op[categoryItem()] }}</li>
