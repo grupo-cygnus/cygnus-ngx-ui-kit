@@ -1,0 +1,345 @@
+<!-- ═══════════════════════════════════════════════
+     BARRA DE CONTROLES (reemplaza renderControls)
+════════════════════════════════════════════════ -->
+<div class="flex flex-wrap gap-3 items-center p-4 mb-4 rounded-xl bg-white border border-gray-200 shadow-sm">
+
+  <!-- Búsqueda con botón limpiar -->
+  <div class="relative flex-1 min-w-48">
+    <input
+      type="text"
+      placeholder="Buscar..."
+      [value]="searchTerm()"
+      (input)="onSearch($any($event.target).value)"
+      class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
+    />
+    @if (searchTerm()) {
+      <button
+        (click)="clearSearch()"
+        class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-lg leading-none"
+      >×</button>
+    }
+  </div>
+
+  <!-- Select columna de ordenamiento -->
+  @if (viewMode() === 'cards') {
+    <select
+      [ngModel]="sortKey()"
+      (ngModelChange)="sortKey.set($event); onSortChange()"
+      class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
+    >
+      <option value="">Sin orden</option>
+      @for (entry of visibleColumns(); track entry[0]) {
+        <option [value]="entry[0]">{{ getColumnLabel(entry[0]) }}</option>
+      }
+    </select>
+
+    <select
+      [ngModel]="sortOrder()"
+      (ngModelChange)="sortOrder.set($event); onSortChange()"
+      class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
+    >
+      <option value="asc">Ascendente ↑</option>
+      <option value="desc">Descendente ↓</option>
+    </select>
+  }
+
+  <!-- Botón Exportar -->
+  <button
+    (click)="exportToExcel()"
+    class="px-4 py-2 h-10 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-lg cursor-pointer transition-colors"
+  >
+    Excel ⊞
+  </button>
+
+  <!-- Acciones globales -->
+  @for (action of config.globalActions; track action.label) {
+    <button
+      (click)="runGlobalAction(action.callback)"
+      [disabled]="!hasSelection()"
+      [class]="'px-3 py-2 h-10 text-white text-sm rounded-lg transition-opacity ' + (action.className ?? 'bg-violet-600 hover:bg-violet-700') + (!hasSelection() ? ' opacity-40 cursor-not-allowed' : '')"
+    >
+      {{ action.label }}
+    </button>
+  }
+
+  <!-- Seleccionar visibles (solo con checkboxes) -->
+  @if (config.useCheckboxes) {
+    <button
+      (click)="toggleSelectAll()"
+      [class]="'px-3 py-2 h-10 text-sm rounded-lg border transition-colors cursor-pointer ' +
+        (allVisibleSelected()
+          ? 'bg-violet-100 border-violet-500 text-violet-700 font-semibold'
+          : 'bg-gray-50 border-gray-300 text-gray-700 hover:bg-gray-100')"
+    >
+      {{ allVisibleSelected() ? 'Desmarcar visibles' : 'Seleccionar visibles' }}
+    </button>
+  }
+
+  <!-- Toggle vista (cards/table) -->
+  @if (config.showDynamicView) {
+    <button
+      (click)="viewMode.set(viewMode() === 'cards' ? 'table' : 'cards')"
+      class="px-3 py-2 h-10 bg-gray-100 hover:bg-gray-200 text-sm rounded-lg border border-gray-300 cursor-pointer transition-colors"
+    >
+      {{ viewMode() === 'cards' ? 'Ver como Tabla' : 'Ver como Tarjetas' }}
+    </button>
+  }
+
+  <!-- Toggle etiquetas (solo en cards) -->
+  @if (viewMode() === 'cards' || config.showDynamicView) {
+    <button
+      (click)="showLabels.set(!showLabels())"
+      [class]="'px-3 py-2 h-10 text-sm rounded-lg border cursor-pointer transition-colors ' +
+        (!showLabels()
+          ? 'bg-gray-800 text-white border-gray-700'
+          : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200')"
+    >
+      Etiquetas: {{ showLabels() ? 'ON' : 'OFF' }}
+    </button>
+  }
+
+  <!-- Dropdown selector de columnas -->
+  <!-- NOTA: Aquí sí usamos CSS puro para el hover del dropdown,
+       ya que Tailwind no tiene "group-hover" en dropdowns absolutos
+       sin JS adicional. Alternativa: usar un signal booleano showColDropdown -->
+  <div class="relative group">
+    <button class="px-3 py-2 h-10 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-100 cursor-pointer">
+      Columnas ⛯
+    </button>
+    <div class="hidden group-hover:block absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg p-3 z-10 min-w-44">
+      @for (entry of visibleColumns(); track entry[0]) {
+        <label class="flex items-center gap-2 mb-2 text-sm cursor-pointer hover:text-violet-600">
+          <input
+            type="checkbox"
+            [checked]="isColumnVisible(entry[0])"
+            (change)="toggleColumn(entry[0], $any($event.target).checked)"
+            class="w-4 h-4 accent-violet-600"
+          />
+          {{ getColumnLabel(entry[0]) }}
+        </label>
+      }
+    </div>
+  </div>
+
+  <!-- Botón Favoritos -->
+  @if (config.favoritesId) {
+    <button
+      (click)="showFavModal.set(true)"
+      class="px-3 py-2 h-10 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-lg border border-amber-600 cursor-pointer transition-colors"
+    >
+      Favoritos ★
+    </button>
+  }
+
+  <!-- Reset -->
+  <button
+    (click)="reset()"
+    title="Reiniciar vista"
+    class="px-3 py-2 h-10 bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-200 cursor-pointer transition-colors"
+  >⟲</button>
+
+  <!-- Counter -->
+  <span class="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium whitespace-nowrap">
+    Mostrando {{ processedData().length }} de {{ config.data.length }}
+  </span>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     VISTA TABLA (reemplaza renderAsTable)
+════════════════════════════════════════════════ -->
+@if (viewMode() === 'table') {
+  <div class="w-full overflow-x-auto max-h-[500px] border border-gray-200 rounded-xl">
+    <table class="w-full border-collapse bg-white text-sm min-w-[800px]">
+      <thead>
+        <tr>
+          @if (config.useCheckboxes) {
+            <th class="sticky top-0 bg-gray-50 z-10 px-3 py-3 border-b-2 border-gray-200">
+              <!--
+                El estado indeterminate no se puede bindear con [attr], se necesita
+                una directiva o una referencia #masterCb con (change) para setear
+                la propiedad JS nativa. Es el único lugar donde se justifica hacerlo
+                desde el componente TS directamente o con una directiva custom.
+              -->
+              <input type="checkbox"
+                     [checked]="masterCheckboxState() === true"
+                     (change)="toggleSelectAll()"
+                     class="w-4 h-4 accent-violet-600 cursor-pointer" />
+            </th>
+          }
+          @for (entry of visibleColumns(); track entry[0]) {
+            <th
+              (click)="onHeaderClick(entry[0])"
+              class="sticky top-0 bg-gray-50 z-10 px-3 py-3 text-left border-b-2 border-gray-200 cursor-pointer select-none hover:bg-gray-100 transition-colors whitespace-nowrap pr-6 relative"
+            >
+              {{ getColumnLabel(entry[0]) }}
+              <span class="absolute right-2 top-1/2 -translate-y-1/2 text-xs">
+                @if (sortKey() === entry[0] && sortOrder() === 'asc') { ↑ }
+                @else if (sortKey() === entry[0] && sortOrder() === 'desc') { ↓ }
+                @else { <span class="opacity-30">↕</span> }
+              </span>
+            </th>
+          }
+          @if (config.actions?.length) {
+            <th class="sticky top-0 bg-gray-50 z-10 px-3 py-3 text-left border-b-2 border-gray-200">
+              {{ config.actionLabel ?? 'Acciones' }}
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of processedData(); track item) {
+          <tr class="hover:bg-gray-50 transition-colors">
+            @if (config.useCheckboxes) {
+              <td class="px-3 py-2 border-b border-gray-100">
+                <input type="checkbox"
+                       [checked]="selectedItems().has(item)"
+                       (change)="toggleItem(item)"
+                       class="w-4 h-4 accent-violet-600 cursor-pointer" />
+              </td>
+            }
+            @for (entry of visibleColumns(); track entry[0]) {
+              <td
+                class="px-3 py-2 border-b border-gray-100"
+                [class.text-right]="getColumnType(entry[0]) === 'money'"
+                [class.font-mono]="getColumnType(entry[0]) === 'money'"
+                [class.font-bold]="getColumnType(entry[0]) === 'money'"
+              >
+                {{ item[entry[0]] | formatValue: getColumnType(entry[0]) }}
+              </td>
+            }
+            @if (config.actions?.length) {
+              <td class="px-3 py-2 border-b border-gray-100">
+                <div class="flex gap-1 flex-wrap">
+                  @for (action of config.actions; track action.label) {
+                    <button
+                      (click)="runRowAction(action.callback, item)"
+                      [class]="'px-2 py-1 text-xs rounded cursor-pointer border-none text-white ' + (action.className ?? 'bg-sky-500 hover:bg-sky-600')"
+                    >{{ action.label }}</button>
+                  }
+                </div>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+
+
+<!-- ═══════════════════════════════════════════════
+     VISTA TARJETAS (reemplaza renderAsCards)
+════════════════════════════════════════════════ -->
+@if (viewMode() === 'cards') {
+  <div class="flex flex-wrap gap-3">
+    @for (item of processedData(); track item) {
+      <div class="border border-gray-200 rounded-xl p-4 flex-1 basis-[50rem] flex flex-row flex-wrap gap-2 items-center">
+
+        @if (config.useCheckboxes) {
+          <div class="flex items-center py-2">
+            <input type="checkbox"
+                   [checked]="selectedItems().has(item)"
+                   (change)="toggleItem(item)"
+                   class="w-[18px] h-[18px] accent-violet-600 cursor-pointer" />
+          </div>
+        }
+
+        <div class="flex flex-row gap-2 items-center flex-1 flex-wrap">
+          @for (entry of visibleColumns(); track entry[0]) {
+            <div class="flex flex-col justify-between py-1 w-32 max-w-full grow">
+              @if (showLabels()) {
+                <span class="font-bold capitalize text-xs text-gray-500 mr-2">
+                  {{ getColumnLabel(entry[0]) }}:
+                </span>
+              }
+              <span
+                class="text-xs overflow-hidden text-ellipsis whitespace-nowrap"
+                [class.text-right]="getColumnType(entry[0]) === 'money'"
+                [class.font-mono]="getColumnType(entry[0]) === 'money'"
+                [class.font-bold]="getColumnType(entry[0]) === 'money'"
+              >
+                {{ item[entry[0]] | formatValue: getColumnType(entry[0]) }}
+              </span>
+            </div>
+          }
+
+          <!-- Acciones por fila -->
+          @if (config.actions?.length) {
+            <div class="flex flex-col justify-between py-1 w-32 max-w-full grow">
+              @if (showLabels()) {
+                <span class="font-bold capitalize text-xs text-gray-500">
+                  {{ config.actionLabel ?? 'Acciones' }}:
+                </span>
+              }
+              <div class="flex gap-1 flex-wrap">
+                @for (action of config.actions; track action.label) {
+                  <button
+                    (click)="runRowAction(action.callback, item)"
+                    [class]="'px-2 py-1 text-xs rounded cursor-pointer border-none text-white ' + (action.className ?? 'bg-sky-500 hover:bg-sky-600')"
+                  >{{ action.label }}</button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+      </div>
+    }
+  </div>
+}
+
+
+<!-- ═══════════════════════════════════════════════
+     MODAL DE FAVORITOS (reemplaza openFavoritesModal)
+     En Vanilla se usaba document.body.appendChild.
+     En Angular simplemente lo condicionamos con @if.
+════════════════════════════════════════════════ -->
+@if (showFavModal()) {
+  <div
+    class="fixed inset-0 bg-black/50 flex justify-center items-center z-40 p-4"
+    (click)="showFavModal.set(false)"
+  >
+    <div
+      class="bg-white rounded-xl p-5 w-full max-w-md max-h-[70vh] flex flex-col gap-4 shadow-xl"
+      (click)="$event.stopPropagation()"
+    >
+      <h3 class="text-lg font-bold text-gray-800">Configuraciones Favoritas</h3>
+
+      <div class="flex-1 overflow-y-auto flex flex-col gap-2">
+        @if (!favorites().length) {
+          <p class="text-sm text-gray-400">No hay favoritos guardados.</p>
+        }
+        @for (fav of favorites(); track fav.name; let i = $index) {
+          <div
+            class="flex justify-between items-center px-3 py-2 border rounded-lg hover:bg-gray-50 cursor-pointer"
+            [class.border-l-4]="activeFavName() === fav.name"
+            [class.border-l-violet-600]="activeFavName() === fav.name"
+            [class.bg-violet-50]="activeFavName() === fav.name"
+            [class.font-bold]="activeFavName() === fav.name"
+            (click)="applyFavorite(fav); showFavModal.set(false)"
+          >
+            <span class="flex-1 text-sm">{{ fav.name }}</span>
+            <button
+              (click)="deleteFavorite(i); $event.stopPropagation()"
+              class="text-red-400 hover:text-red-600 border-none bg-transparent cursor-pointer text-lg"
+            >×</button>
+          </div>
+        }
+      </div>
+
+      <input
+        #favNameInput
+        type="text"
+        placeholder="Nombre de vista..."
+        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
+      />
+      <button
+        (click)="saveFavorite(favNameInput.value); favNameInput.value = ''"
+        class="w-full py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg text-sm font-semibold cursor-pointer transition-colors"
+      >
+        Guardar configuración actual
+      </button>
+    </div>
+  </div>
+}

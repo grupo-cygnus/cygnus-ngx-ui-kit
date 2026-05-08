@@ -1,0 +1,34 @@
+import { Component } from '@angular/core';
+import { CygnusJaviTableComponent, DataTableConfig } from 'ngx-cygnus-ui/components/table';
+
+@Component({
+  selector: 'app-table-javi-content',
+  imports: [
+    CygnusJaviTableComponent
+  ],
+  templateUrl: './table-javi-content.component.html',
+  styleUrl: './table-javi-content.component.scss'
+})
+export class TableJaviContentComponent {
+
+  tableConfig: DataTableConfig = {
+    data: [ /* tus datos */ ],
+    columns: {
+      nombre:  { label: 'Nombre',  type: 'text'     },
+      monto:   { label: 'Monto',   type: 'money'     },
+      fecha:   { label: 'Fecha',   type: 'date'      },
+    },
+    viewMode: 'table',
+    useCheckboxes: true,
+    showDynamicView: true,
+    favoritesId: 'clientes',
+    actions: [
+      { label: 'Editar', className: 'bg-sky-500',  callback: (item) => console.log('edit', item) },
+      { label: 'Ver',    className: 'bg-emerald-500', callback: (item) => console.log('view', item) },
+    ],
+    globalActions: [
+      { label: 'Eliminar seleccionados', callback: (items) => console.log(items) }
+    ]
+  };
+
+}

@@ -116,6 +116,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/table-content/table-content.component').then( (c) => c.TableContentComponent )
   },
   {
+    path: 'table-javi',
+    loadComponent: () => import('./pages/table-javi-content/table-javi-content.component').then( (c) => c.TableJaviContentComponent )
+  },
+  {
     path: 'textarea',
     loadComponent: () => import('./pages/textarea-content/textarea-content.component').then( (c) => c.TextareaContentComponent )
   },
