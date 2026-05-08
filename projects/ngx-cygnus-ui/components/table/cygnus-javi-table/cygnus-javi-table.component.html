@@ -52,7 +52,7 @@
   </button>
 
   <!-- Acciones globales -->
-  @for (action of config.globalActions; track action.label) {
+  @for (action of config().globalActions; track action.label) {
     <button
       (click)="runGlobalAction(action.callback)"
       [disabled]="!hasSelection()"
@@ -63,7 +63,7 @@
   }
 
   <!-- Seleccionar visibles (solo con checkboxes) -->
-  @if (config.useCheckboxes) {
+  @if (config().useCheckboxes) {
     <button
       (click)="toggleSelectAll()"
       [class]="'px-3 py-2 h-10 text-sm rounded-lg border transition-colors cursor-pointer ' +
@@ -76,7 +76,7 @@
   }
 
   <!-- Toggle vista (cards/table) -->
-  @if (config.showDynamicView) {
+  @if (config().showDynamicView) {
     <button
       (click)="viewMode.set(viewMode() === 'cards' ? 'table' : 'cards')"
       class="px-3 py-2 h-10 bg-gray-100 hover:bg-gray-200 text-sm rounded-lg border border-gray-300 cursor-pointer transition-colors"
@@ -86,7 +86,7 @@
   }
 
   <!-- Toggle etiquetas (solo en cards) -->
-  @if (viewMode() === 'cards' || config.showDynamicView) {
+  @if (viewMode() === 'cards' || config().showDynamicView) {
     <button
       (click)="showLabels.set(!showLabels())"
       [class]="'px-3 py-2 h-10 text-sm rounded-lg border cursor-pointer transition-colors ' +
@@ -122,7 +122,7 @@
   </div>
 
   <!-- Botón Favoritos -->
-  @if (config.favoritesId) {
+  @if (config().favoritesId) {
     <button
       (click)="showFavModal.set(true)"
       class="px-3 py-2 h-10 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-lg border border-amber-600 cursor-pointer transition-colors"
@@ -140,7 +140,7 @@
 
   <!-- Counter -->
   <span class="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium whitespace-nowrap">
-    Mostrando {{ processedData().length }} de {{ config.data.length }}
+    Mostrando {{ processedData().length }} de {{ config().data.length }}
   </span>
 </div>
 
@@ -153,7 +153,7 @@
     <table class="w-full border-collapse bg-white text-sm min-w-[800px]">
       <thead>
         <tr>
-          @if (config.useCheckboxes) {
+          @if (config().useCheckboxes) {
             <th class="sticky top-0 bg-gray-50 z-10 px-3 py-3 border-b-2 border-gray-200">
               <!--
                 El estado indeterminate no se puede bindear con [attr], se necesita
@@ -180,9 +180,9 @@
               </span>
             </th>
           }
-          @if (config.actions?.length) {
+          @if (config().actions?.length) {
             <th class="sticky top-0 bg-gray-50 z-10 px-3 py-3 text-left border-b-2 border-gray-200">
-              {{ config.actionLabel ?? 'Acciones' }}
+              {{ config().actionLabel ?? 'Acciones' }}
             </th>
           }
         </tr>
@@ -190,7 +190,7 @@
       <tbody>
         @for (item of processedData(); track item) {
           <tr class="hover:bg-gray-50 transition-colors">
-            @if (config.useCheckboxes) {
+            @if (config().useCheckboxes) {
               <td class="px-3 py-2 border-b border-gray-100">
                 <input type="checkbox"
                        [checked]="selectedItems().has(item)"
@@ -208,10 +208,10 @@
                 {{ item[entry[0]] | formatValue: getColumnType(entry[0]) }}
               </td>
             }
-            @if (config.actions?.length) {
+            @if (config().actions?.length) {
               <td class="px-3 py-2 border-b border-gray-100">
                 <div class="flex gap-1 flex-wrap">
-                  @for (action of config.actions; track action.label) {
+                  @for (action of config().actions; track action.label) {
                     <button
                       (click)="runRowAction(action.callback, item)"
                       [class]="'px-2 py-1 text-xs rounded cursor-pointer border-none text-white ' + (action.className ?? 'bg-sky-500 hover:bg-sky-600')"
@@ -236,7 +236,7 @@
     @for (item of processedData(); track item) {
       <div class="border border-gray-200 rounded-xl p-4 flex-1 basis-[50rem] flex flex-row flex-wrap gap-2 items-center">
 
-        @if (config.useCheckboxes) {
+        @if (config().useCheckboxes) {
           <div class="flex items-center py-2">
             <input type="checkbox"
                    [checked]="selectedItems().has(item)"
@@ -265,15 +265,15 @@
           }
 
           <!-- Acciones por fila -->
-          @if (config.actions?.length) {
+          @if (config().actions?.length) {
             <div class="flex flex-col justify-between py-1 w-32 max-w-full grow">
               @if (showLabels()) {
                 <span class="font-bold capitalize text-xs text-gray-500">
-                  {{ config.actionLabel ?? 'Acciones' }}:
+                  {{ config().actionLabel ?? 'Acciones' }}:
                 </span>
               }
               <div class="flex gap-1 flex-wrap">
-                @for (action of config.actions; track action.label) {
+                @for (action of config().actions; track action.label) {
                   <button
                     (click)="runRowAction(action.callback, item)"
                     [class]="'px-2 py-1 text-xs rounded cursor-pointer border-none text-white ' + (action.className ?? 'bg-sky-500 hover:bg-sky-600')"

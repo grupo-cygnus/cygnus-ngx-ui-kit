@@ -11,8 +11,23 @@ import { CygnusJaviTableComponent, DataTableConfig } from 'ngx-cygnus-ui/compone
 })
 export class TableJaviContentComponent {
 
+  data = [
+    {
+      "cod": 1,
+      "nombre": "javier",
+      "puesto": "desarrollador",
+      "ingreso": "2015"
+    },
+    {
+      "cod": 2,
+      "nombre": "claudia",
+      "puesto": "front",
+      "ingreso": "2025"
+    },
+  ];
+
   tableConfig: DataTableConfig = {
-    data: [ /* tus datos */ ],
+    data: this.data,
     columns: {
       nombre:  { label: 'Nombre',  type: 'text'     },
       monto:   { label: 'Monto',   type: 'money'     },

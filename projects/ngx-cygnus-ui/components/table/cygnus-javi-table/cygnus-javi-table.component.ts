@@ -1,6 +1,7 @@
 import {
   Component, Input, OnInit, signal, computed,
-  inject, ChangeDetectionStrategy
+  inject, ChangeDetectionStrategy,
+  input
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataTableConfig, FavoriteConfig, ColumnsMap } from './data-table.models';
@@ -18,7 +19,8 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
 
   // Basado en https://github.com/Javibluebell/vanilla-js-data-table-component
 
-  @Input({ required: true }) config!: DataTableConfig<T>;
+  // @Input({ required: true }) config!: DataTableConfig<T>;
+  config = input.required<DataTableConfig<T>>();
 
   private favService = inject(DataTableFavoritesService);
 
@@ -39,15 +41,15 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
 
   // ── Computed: columnas visibles ───────────────────────────
   visibleColumns = computed(() => {
-    return Object.entries(this.config.columns)
+    return Object.entries(this.config().columns)
       .filter(([key]) => !this.hiddenColumns().has(key));
   });
 
   // ── Computed: datos filtrados y ordenados ─────────────────
   processedData = computed(() => {
     const term = this.searchTerm().toLowerCase();
-    let data = this.config.data.filter(item =>
-      Object.keys(this.config.columns).some(key =>
+    let data = this.config().data.filter(item =>
+      Object.keys(this.config().columns).some(key =>
         String(item[key]).toLowerCase().includes(term)
       )
     );
@@ -65,18 +67,18 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   storageKey = '';
 
   ngOnInit() {
-    this.viewMode.set(this.config.viewMode ?? 'table');
-    this.showLabels.set(this.config.startWithLabels ?? true);
+    this.viewMode.set(this.config().viewMode ?? 'table');
+    this.showLabels.set(this.config().startWithLabels ?? true);
 
     // Columnas ocultas por defecto (más de 6)
-    const keys = Object.keys(this.config.columns);
+    const keys = Object.keys(this.config().columns);
     if (keys.length > 6) {
       this.hiddenColumns.set(new Set(keys.slice(6)));
     }
 
     // Favoritos
-    if (this.config.favoritesId) {
-      this.storageKey = `table_favs_${this.config.favoritesId}`;
+    if (this.config().favoritesId) {
+      this.storageKey = `table_favs_${this.config().favoritesId}`;
       this.favorites.set(this.favService.load(this.storageKey));
       const active = this.favService.getActive(this.storageKey);
       if (active) {
@@ -112,7 +114,7 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
     const key = this.sortKey();
     if (!key) return [...data];
 
-    const colConf = this.config.columns[key];
+    const colConf = this.config().columns[key];
     const type = typeof colConf === 'object' ? colConf.type : 'text';
 
     return [...data].sort((a, b) => {
@@ -212,7 +214,7 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
     this.searchTerm.set('');
     this.sortKey.set('');
     this.sortOrder.set('asc');
-    const keys = Object.keys(this.config.columns);
+    const keys = Object.keys(this.config().columns);
     this.hiddenColumns.set(new Set(keys.length > 6 ? keys.slice(6) : []));
     this.selectedItems.set(new Set());
     this.clearActiveFavorite();
@@ -226,7 +228,7 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   }
 
   runRowAction(callback: (item: T, index: number) => void, item: T) {
-    callback(item, this.config.data.indexOf(item));
+    callback(item, this.config().data.indexOf(item));
   }
 
   // ── Export ────────────────────────────────────────────────
@@ -239,7 +241,7 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
     const datos = this.processedData().map(obj => {
       const row: any = {};
       visibleKeys.forEach(key => {
-        const conf = this.config.columns[key];
+        const conf = this.config().columns[key];
         row[key] = typeof conf === 'object'
           ? this.formatRaw(obj[key], conf.type)
           : obj[key];
@@ -255,7 +257,7 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
 
   private exportToCSV(visibleKeys: string[]) {
     const headers = visibleKeys.map(key => {
-      const c = this.config.columns[key];
+      const c = this.config().columns[key];
       return typeof c === 'object' ? c.label : c;
     }).join(',');
 
@@ -280,12 +282,12 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   }
 
   getColumnType(key: string) {
-    const conf = this.config.columns[key];
+    const conf = this.config().columns[key];
     return typeof conf === 'object' ? conf.type : undefined;
   }
 
   getColumnLabel(key: string) {
-    const conf = this.config.columns[key];
+    const conf = this.config().columns[key];
     return typeof conf === 'object' ? conf.label : conf;
   }
 }
