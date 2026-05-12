@@ -31,7 +31,9 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   sortKey       = signal('');
   sortOrder     = signal<'asc' | 'desc'>('asc');
   hiddenColumns = signal<Set<string>>(new Set());
-  selectedItems = signal<Set<T>>(new Set());
+  // selectedItems = signal<Set<T>>(new Set());
+  // 1. Cambiamos el Set para que guarde IDs (string o number)
+  selectedItems = signal<Set<string | number>>(new Set());
   showLabels    = signal(true);
   viewMode      = signal<'cards' | 'table'>('table');
   showFavModal  = signal(false);
@@ -40,6 +42,11 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
 
   // Debounce timer
   private searchTimer: any;
+
+  // Helper para obtener la clave del ID (usando la nueva propiedad o 'id' por defecto)
+  get idKey(): string {
+    return this.config().rowIdKey || 'id';
+  }
 
   // ── Computed: columnas visibles ───────────────────────────
   visibleColumns = computed(() => {
@@ -59,9 +66,13 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   });
 
   // ── Computed: estado del "Seleccionar visibles" ───────────
+  // __ Ajustamos el computed para verificar por ID
   allVisibleSelected = computed(() => {
     const data = this.processedData();
-    return data.length > 0 && data.every(item => this.selectedItems().has(item));
+    const selected = this.selectedItems();
+    if (data.length === 0) return false;
+    // Comprobamos si el ID de cada fila está en el Set
+    return data.every(item => selected.has(item[this.idKey]));
   });
 
   hasSelection = computed(() => this.selectedItems().size > 0);
@@ -137,30 +148,56 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   }
 
   // ── Checkboxes ────────────────────────────────────────────
+  // __ Método para alternar un solo item
   toggleItem(item: T) {
-    const set = new Set(this.selectedItems());
-    set.has(item) ? set.delete(item) : set.add(item);
-    this.selectedItems.set(set);
+    const id = item[this.idKey];
+    const newSet = new Set(this.selectedItems());
+    if (newSet.has(id)) {
+      newSet.delete(id);
+    } else {
+      newSet.add(id);
+    }
+    this.selectedItems.set(newSet);
   }
 
+  // __ Método corregido para seleccionar/desmarcar TODO lo visible
   toggleSelectAll() {
-    const data = this.processedData();
-    const set = new Set(this.selectedItems());
+    const visibleData = this.processedData();
+    const visibleIds = visibleData.map(item => item[this.idKey]);
+    const newSet = new Set(this.selectedItems());
+
     if (this.allVisibleSelected()) {
-      data.forEach(item => set.delete(item));
+      // DESMARCAR: Quitamos los IDs visibles del Set global
+      visibleIds.forEach(id => newSet.delete(id));
     } else {
-      data.forEach(item => set.add(item));
+      // MARCAR: Añadimos los IDs visibles al Set
+      visibleIds.forEach(id => newSet.add(id));
     }
-    this.selectedItems.set(set);
+    this.selectedItems.set(newSet);
   }
 
   masterCheckboxState(): boolean | 'indeterminate' {
-    const data = this.processedData();
-    const allSel = data.every(i => this.selectedItems().has(i));
-    const someSel = data.some(i => this.selectedItems().has(i));
-    if (allSel && data.length > 0) return true;
-    if (someSel) return 'indeterminate';
-    return false;
+  const data = this.processedData();
+  const selected = this.selectedItems(); // Obtenemos el Set de IDs
+
+  // Usamos i[this.idKey] para comparar el ID del objeto con el Set
+  const allSel = data.every(i => selected.has(i[this.idKey]));
+  const someSel = data.some(i => selected.has(i[this.idKey]));
+
+  if (allSel && data.length > 0) return true;
+  if (someSel) return 'indeterminate';
+  return false;
+}
+
+  // __ Ajustar Acciones Globales
+  // Como las acciones esperan los OBJETOS completos (T[]), filtramos la data original
+  executeGlobalAction(action: any) {
+    const selectedIds = this.selectedItems();
+    // Buscamos los objetos reales que coinciden con los IDs seleccionados
+    const selectedObjects = this.config().data.filter(item =>
+      selectedIds.has(item[this.idKey])
+    );
+    action.callback(selectedObjects);
   }
 
   // ── Columnas ──────────────────────────────────────────────
@@ -224,13 +261,22 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
 
   // ── Acciones ──────────────────────────────────────────────
   runGlobalAction(callback: (items: T[]) => void) {
-    const items = Array.from(this.selectedItems());
-    if (!items.length) return;
-    callback(items);
+    const selectedIds = this.selectedItems();
+
+    // Filtramos la data original para obtener los objetos completos
+    // que correspondan a los IDs que tenemos guardados.
+    const selectedObjects = this.config().data.filter(item =>
+      selectedIds.has(item[this.idKey])
+    );
+
+    if (selectedObjects.length === 0) return;
+    callback(selectedObjects);
   }
 
-  runRowAction(callback: (item: T, index: number) => void, item: T) {
-    callback(item, this.config().data.indexOf(item));
+  runRowAction(action: any, item: T, index: number) {
+    if (action.callback) {
+      action.callback(item, index);
+    }
   }
 
   // ── Export ────────────────────────────────────────────────

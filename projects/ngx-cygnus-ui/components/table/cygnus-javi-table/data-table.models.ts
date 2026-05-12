@@ -27,6 +27,7 @@ export interface FavoriteConfig {
 }
 
 export interface DataTableConfig<T = any> {
+  rowIdKey?: string; // Ej: 'uuid', 'id', 'codigo', etc.
   data: T[];
   columns: ColumnsMap;
   viewMode?: 'cards' | 'table';
