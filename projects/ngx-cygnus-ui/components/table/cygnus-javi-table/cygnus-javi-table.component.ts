@@ -1,12 +1,13 @@
 import {
-  Component, Input, OnInit, signal, computed,
+  Component, OnInit, signal, computed,
   inject, ChangeDetectionStrategy,
-  input
+  input, PLATFORM_ID
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataTableConfig, FavoriteConfig, ColumnsMap } from './data-table.models';
 import { FormatValuePipe } from './format-value.pipe';
 import { DataTableFavoritesService } from './data-table.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'cygnus-javi-table',
@@ -16,8 +17,9 @@ import { DataTableFavoritesService } from './data-table.service';
   templateUrl: './cygnus-javi-table.component.html',
 })
 export class CygnusJaviTableComponent<T extends Record<string, any>> implements OnInit {
-
   // Basado en https://github.com/Javibluebell/vanilla-js-data-table-component
+
+  private platformId = inject(PLATFORM_ID);
 
   // @Input({ required: true }) config!: DataTableConfig<T>;
   config = input.required<DataTableConfig<T>>();
@@ -233,10 +235,16 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
 
   // ── Export ────────────────────────────────────────────────
   exportToExcel() {
-    // Igual que el original: usar SheetJS si está disponible, sino CSV
+    // 1. Verificación de SSR
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const XLSX = (window as any)['XLSX'];
     const visibleKeys = this.visibleColumns().map(([key]) => key);
-    if (!XLSX) { this.exportToCSV(visibleKeys); return; }
+
+    if (!XLSX) {
+      this.exportToCSV(visibleKeys);
+      return;
+    }
 
     const datos = this.processedData().map(obj => {
       const row: any = {};
@@ -256,6 +264,9 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   }
 
   private exportToCSV(visibleKeys: string[]) {
+    // 2. Verificación de SSR (usa document y URL)
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const headers = visibleKeys.map(key => {
       const c = this.config().columns[key];
       return typeof c === 'object' ? c.label : c;
@@ -267,10 +278,14 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
 
     const blob = new Blob(['\uFEFF' + [headers, ...rows].join('\n')],
       { type: 'text/csv;charset=utf-8;' });
+
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = `reporte_${Date.now()}.csv`;
     a.click();
+
+    // Limpieza de memoria
+    URL.revokeObjectURL(a.href);
   }
 
   private formatRaw(value: any, type: any): any {

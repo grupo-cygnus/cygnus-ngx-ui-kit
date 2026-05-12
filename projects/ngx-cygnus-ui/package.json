@@ -1,10 +1,11 @@
 {
   "name": "ngx-cygnus-ui",
-  "version": "1.24.00-20260508",
+  "version": "1.24.01-20260512",
   "peerDependencies": {
     "@angular/common": "19.2.19",
     "@angular/core": "19.2.19",
     "@angular/cdk": "19.2.19",
+    "xlsx": "^0.18.5",
     "@fontsource/nunito-sans": "^5.0.0",
     "@fontsource/inter": "^5.0.0",
     "@fontsource/dm-sans": "^5.0.0"
