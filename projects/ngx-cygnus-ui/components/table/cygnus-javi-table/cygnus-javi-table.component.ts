@@ -20,10 +20,7 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   // Basado en https://github.com/Javibluebell/vanilla-js-data-table-component
 
   private platformId = inject(PLATFORM_ID);
-
-  // @Input({ required: true }) config!: DataTableConfig<T>;
   config = input.required<DataTableConfig<T>>();
-
   private favService = inject(DataTableFavoritesService);
 
   // ── Estado reactivo con Signals ──────────────────────────
@@ -194,17 +191,17 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   }
 
   masterCheckboxState(): boolean | 'indeterminate' {
-  const data = this.processedData();
-  const selected = this.selectedItems(); // Obtenemos el Set de IDs
+    const data = this.processedData();
+    const selected = this.selectedItems(); // Obtenemos el Set de IDs
 
-  // Usamos this.getItemId(item, i) para comparar el ID del objeto con el Set
-  const allSel = data.every((item, i) => selected.has(this.getItemId(item, i)));
-  const someSel = data.some((item, i) => selected.has(this.getItemId(item, i)));
+    // Usamos this.getItemId(item, i) para comparar el ID del objeto con el Set
+    const allSel = data.every((item, i) => selected.has(this.getItemId(item, i)));
+    const someSel = data.some((item, i) => selected.has(this.getItemId(item, i)));
 
-  if (allSel && data.length > 0) return true;
-  if (someSel) return 'indeterminate';
-  return false;
-}
+    if (allSel && data.length > 0) return true;
+    if (someSel) return 'indeterminate';
+    return false;
+  }
 
   // __ Ajustar Acciones Globales
   // Como las acciones esperan los OBJETOS completos (T[]), filtramos la data original
