@@ -1,1 +1,127 @@
-<cygnus-javi-table [config]="tableConfig" />
+
+<main class="col-span-1 p-6 bg-white lg:col-span-8">
+  <cygnus-javi-table [config]="tableConfig" />
+
+  <header class="mb-10 mt-20">
+    <h1 class="text-4xl font-bold">Cygnus Javi Table</h1>
+    <p class="mt-4 text-secondary-600 text-md">
+      Tablas de datos con modo híbrido (Tabla/Tarjetas), filtrado inteligente y persistencia de vistas favoritas.
+    </p>
+    <p class="mt-4 text-secondary-600 text-md">
+      Original: <a href="https://github.com/Javibluebell/vanilla-js-data-table-component" target="_blank">https://github.com/Javibluebell/vanilla-js-data-table-component</a>
+    </p>
+  </header>
+
+  <section id="cygnus-javi-table-content">
+    <div class="min-h-[140px] rounded-lg border mb-14">
+      <div class="p-4 pb-4">
+        <h2 class="mb-2 text-xl font-semibold">Contenido</h2>
+        <p class="mb-8 text-secondary-600 text-md">
+          Este componente se compone de la siguiente rama de archivos:
+        </p>
+
+        <pre class="bg-gray-800 p-4 text-gray-50 rounded-lg overflow-x-auto font-mono text-sm leading-relaxed">
+          <code class="grid gap-1">
+            <span>cygnus-javi-table</span>
+            <span>---cygnus-javi-table.component.html</span>
+            <span>---cygnus-javi-table.component.ts</span>
+            <span>---data-table.models.ts</span>
+            <span>---data-table.service.ts</span>
+            <span>---format-value.pipe.ts</span>
+          </code>
+        </pre>
+
+        <ul class="mb-8 text-gray-600 text-md list-none">
+          <li><b>[cygnus-javi-table.component.html]</b>: Plantilla de la tabla dinámica.</li>
+          <li><b>[cygnus-javi-table.component.ts]</b>: Typescript general de la tabla.</li>
+          <li><b>[data-table.models] </b>: Interfaces para estructurar elementos que se muestran en la tabla.</li>
+          <li><b>[data-table.service]</b>: Servicio para gestionar el almacenamiento en storage.</li>
+          <li><b>[format-value.pipe] </b>: Pipe propio para fechas y números.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="cygnus-javi-table-content">
+    <div class="min-h-35 rounded-lg border mb-14">
+      <div class="p-4 pb-4">
+        <h2 class="mb-2 text-xl font-semibold">Instalación requerida</h2>
+        <p class="mb-8 text-secondary-600 text-md">
+          Para poder exportar documentos en Excel, se requiere la instalación y configuración de SheetJS en el proyecto donde se utilizará la biblioteca. Si esto no se realiza ni se configura, se exportarán documentos .csv
+        </p>
+
+        <p class="mb-8 text-secondary-600 text-md">
+          Instalación:
+        </p>
+
+        <pre class="bg-gray-800 p-4 text-gray-50 rounded-lg overflow-x-auto font-mono text-sm leading-relaxed">
+          <code class="grid gap-1">npm install xlsx
+          </code>
+        </pre>
+
+        <p class="mb-8 text-secondary-600 text-md">
+          Configuración del archivo angular.json:
+        </p>
+
+        <pre class="bg-gray-800 p-4 text-gray-50 rounded-lg overflow-x-auto font-mono text-sm leading-relaxed">
+          <code class="grid gap-1">
+            "architect": &lcub;
+              "build": &lcub;
+                "options": &lcub;
+                  "scripts": [
+                    "node_modules/xlsx/dist/xlsx.full.min.js"
+                  ]
+                &rcub;
+              &rcub;
+            &rcub;
+          </code>
+        </pre>
+
+        <p class="mb-8 text-secondary-600 text-md">
+          Después de este cambio, es obligatorio reiniciar el servidor de desarrollo (ng serve) para que Angular incluya el script en el bundle.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cygnus-javi-table-general-instructions">
+    <div class="min-h-35 rounded-lg border mb-14">
+      <div class="p-4 pb-4">
+        <h2 class="mb-2 text-xl font-semibold">Configuración</h2>
+        <p class="mb-8 text-secondary-600 text-md">
+          Añadir un array con los datos que se requiere mostrar.
+        </p>
+
+        <pre>
+          <code [highlight]="arrayExample"
+                language="ts"
+                lineNumbers></code>
+        </pre>
+
+
+
+        <p class="mb-8 text-secondary-600 text-md">
+          Añadir un objeto del tipo DataTableConfig (interface encontrada en data-table.models) con el detalle del funcionamiento de la tabla. Observar que el arreglo creado en el paso anterior va enlazado en <code>data</code>.
+        </p>
+
+        <pre>
+          <code [highlight]="dataTableConfigExample"
+                language="ts"
+                lineNumbers></code>
+        </pre>
+
+        <p class="mb-8 text-secondary-600 text-md">
+          En el documento .html añadir la plantilla con la configuración realizada.
+        </p>
+
+        <pre>
+          <code [highlight]="htmlExample"
+                language="ts"
+                lineNumbers></code>
+        </pre>
+
+      </div>
+
+    </div>
+  </section>
+</main>
