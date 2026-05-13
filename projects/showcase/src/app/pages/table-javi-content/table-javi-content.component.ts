@@ -41,11 +41,11 @@ export class TableJaviContentComponent {
     showDynamicView: true,
     favoritesId: 'clientes',
     actions: [
-      { label: 'Editar', className: 'bg-sky-500',  callback: (item) => console.log('edit', item) },
-      { label: 'Ver',    className: 'bg-emerald-500', callback: (item) => console.log('view', item) },
+      { label: 'Editar', className: 'bg-sky-500',  callback: (item) => {console.log('edit', item)} },
+      { label: 'Ver',    className: 'bg-emerald-500', callback: (item) => {console.log('view', item)} },
     ],
     globalActions: [
-      { label: 'Eliminar seleccionados', callback: (items) => console.log(items) }
+      { label: 'Eliminar seleccionados', callback: (items) => {console.log(items)} }
     ]
   };
 

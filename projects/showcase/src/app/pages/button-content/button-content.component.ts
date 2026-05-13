@@ -47,6 +47,21 @@ export class ButtonContentComponent {
     <cygnus-button [btnTypes]="'btn btn-size-sm'" >Botón simple</cygnus-button>
   `;
 
+  btnSimpleExampleTs: string = `
+    import { Component } from '@angular/core';
+    import { CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
+
+    @Component({
+      selector: 'app-button-content',
+      imports: [
+        CygnusButtonComponent,
+      ],
+      templateUrl: './button-content.component.html',
+      styleUrl: './button-content.component.scss'
+    })
+    export class ButtonContentComponent {}
+  `;
+
   btnNavbarExample: string = `
     <!-- COMPONENTE: Botón Navbar -->
     <cygnus-button-link
@@ -57,6 +72,22 @@ export class ButtonContentComponent {
     </cygnus-button-link>
     <!-- COMPONENTE: Botón Sidebar -->
     <cygnus-button [btnTypes]="'btn btn-sidebar btn-size-sm'" >Botón sidebar</cygnus-button>
+  `;
+
+  btnNavbarExampleTs: string = `
+    import { Component } from '@angular/core';
+    import { CygnusButtonLinkComponent, CygnusButtonComponent } from 'ngx-cygnus-ui/components/button';
+
+    @Component({
+      selector: 'app-button-content',
+      imports: [
+        CygnusButtonLinkComponent,
+        CygnusButtonComponent,
+      ],
+      templateUrl: './button-content.component.html',
+      styleUrl: './button-content.component.scss'
+    })
+    export class ButtonContentComponent {}
   `;
 
   btnVariantesExample: string = `
@@ -332,6 +363,24 @@ export class ButtonContentComponent {
       [btnIconRouteRight]="'assets/icons/svg/Users/face-smile.svg'"
     >
     </cygnus-button>
+
+    <cygnus-button
+      [btnTypes]="'btn-primary btn-circle btn-icon-only-size-full'"
+      [btnIconRouteRight]="'accessible-03'"
+    >
+    </cygnus-button>
+
+    <cygnus-button
+      [btnTypes]="'btn-postulaaqui-orange btn-circle btn-icon-only-size-full'"
+      [btnIconRouteRight]="'moon-01'"
+    >
+    </cygnus-button>
+
+    <cygnus-button
+      [btnTypes]="'btn-postulaaqui-orange btn-circle btn-icon-only'"
+      [btnIconRouteRight]="'moon-01'"
+    >
+    </cygnus-button>
   `;
 
   btnIconOnlySizesExample: string = `
@@ -363,7 +412,7 @@ export class ButtonContentComponent {
   `;
 
   btnGroupSizesExample: string = `
-    <!-- COMPONENTE: Grupo de botones small -->
+    <!-- COMPONENTE: Grupo de botones small (colores) -->
     <div class="inline-flex flex-row">
       <cygnus-button
         [btnTypes]="'btn-success btn-size-xs btn-group-left'"
@@ -386,7 +435,7 @@ export class ButtonContentComponent {
         right btn
       </cygnus-button>
     </div>
-    <!-- COMPONENTE: Grupo de botones small -->
+    <!-- COMPONENTE: Grupo de botones small (primary color) -->
     <div class="inline-flex flex-row">
       <cygnus-button
         [btnTypes]="'btn-primary btn-size-xs btn-group-left'"
@@ -410,7 +459,7 @@ export class ButtonContentComponent {
       </cygnus-button>
     </div>
 
-    <!-- COMPONENTE: Grupo de botones medium -->
+    <!-- COMPONENTE: Grupo de botones medium (colores) -->
     <div class="inline-flex flex-row">
       <cygnus-button
         [btnTypes]="'btn-success btn-group-left'"
@@ -433,7 +482,7 @@ export class ButtonContentComponent {
         right btn
       </cygnus-button>
     </div>
-    <!-- COMPONENTE: Grupo de botones medium -->
+    <!-- COMPONENTE: Grupo de botones medium (primary color) -->
     <div class="inline-flex flex-row">
       <cygnus-button
         [btnTypes]="'btn-primary btn-group-left'"
@@ -457,7 +506,7 @@ export class ButtonContentComponent {
       </cygnus-button>
     </div>
 
-    <!-- COMPONENTE: Grupo de botones X large -->
+    <!-- COMPONENTE: Grupo de botones X large (colores) -->
     <div class="inline-flex flex-row">
       <cygnus-button
         [btnTypes]="'btn-success btn-size-xl btn-group-left'"
@@ -480,7 +529,7 @@ export class ButtonContentComponent {
         right btn
       </cygnus-button>
     </div>
-    <!-- COMPONENTE: Grupo de botones X large -->
+    <!-- COMPONENTE: Grupo de botones X large (primary color) -->
     <div class="inline-flex flex-row">
       <cygnus-button
         [btnTypes]="'btn-primary btn-size-xl btn-group-left'"
@@ -506,7 +555,7 @@ export class ButtonContentComponent {
   `;
 
   btnGroupVariantesExample: string = `
-    <!-- COMPONENTE: Grupo de botones medium -->
+    <!-- COMPONENTE: Grupo de botones medium btn-ghost -->
     <div class="inline-flex flex-row">
       <cygnus-button
         [btnTypes]="'btn-ghost btn-size-sm btn-icon btn-group-left'"
@@ -528,7 +577,7 @@ export class ButtonContentComponent {
       </cygnus-button>
     </div>
 
-    <!-- COMPONENTE: Grupo de botones medium -->
+    <!-- COMPONENTE: Grupo de botones medium btn-outlined -->
     <div class="inline-flex flex-row">
       <cygnus-button
         [btnTypes]="'btn-outlined btn-size-sm btn-icon btn-group-left'"
@@ -550,7 +599,7 @@ export class ButtonContentComponent {
       </cygnus-button>
     </div>
 
-    <!-- COMPONENTE: Grupo de botones medium -->
+    <!-- COMPONENTE: Grupo de botones medium btn-primary -->
     <div class="inline-flex flex-row">
       <cygnus-button
         [btnTypes]="'btn-primary btn-size-sm btn-icon btn-group-left'"
@@ -571,6 +620,64 @@ export class ButtonContentComponent {
         right btn
       </cygnus-button>
     </div>
+  `;
+
+  btnGradientExample1: string = `
+    <div class="flex flex-wrap items-center w-full gap-3 mb-4">
+      <!-- COMPONENTE: Botón primario -->
+      <cygnus-button [btnTypes]="'btn-primary'" [gradientButton]="true" >Primario</cygnus-button>
+      <!-- COMPONENTE: Botón secundario -->
+      <cygnus-button [btnTypes]="'btn-secondary'" [gradientButton]="true" >Secundario</cygnus-button>
+      <!-- COMPONENTE: Botón informativo -->
+      <cygnus-button [btnTypes]="'btn-accent'" [gradientButton]="true" >Informativo</cygnus-button>
+    </div>
+  `;
+
+  btnGradientExample2: string = `
+  <div class="flex flex-wrap items-center w-full gap-3 mb-4">
+    <!-- COMPONENTE: Botón gris -->
+    <cygnus-button [btnTypes]="'btn-gray'" [gradientButton]="true" >Gris</cygnus-button>
+    <!-- COMPONENTE: Botón éxito -->
+    <cygnus-button [btnTypes]="'btn-success'" [gradientButton]="true" >Éxito</cygnus-button>
+    <!-- COMPONENTE: Botón red -->
+    <cygnus-button [btnTypes]="'btn-error'" [gradientButton]="true" >Red</cygnus-button>
+    <!-- COMPONENTE: Botón Advertencia -->
+    <cygnus-button [btnTypes]="'btn-warning'" [gradientButton]="true" >Advertencia</cygnus-button>
+  </div>
+  `;
+
+  btnGradientExample3: string = `
+    <div class="flex flex-wrap items-center w-full gap-3 mb-4">
+
+      <cygnus-button
+        [btnTypes]="'btn-ghost btn-icon-only'"
+        [btnIconRouteRight]="'assets/icons/svg/General/plus.svg'"
+        [gradientButton]="true"
+      >
+      </cygnus-button>
+      <cygnus-button
+        [btnTypes]="'btn-outlined btn-icon-only'"
+        [btnIconRouteRight]="'assets/icons/svg/General/plus.svg'"
+        [gradientButton]="true"
+      >
+      </cygnus-button>
+      <cygnus-button
+        [btnTypes]="'btn-primary btn-icon-only'"
+        [btnIconRouteRight]="'assets/icons/svg/General/plus.svg'"
+        [gradientButton]="true"
+      >
+      </cygnus-button>
+
+    </div>
+  `;
+
+  btnPostulaaquiOrange: string = `
+    <cygnus-button
+      [btnTypes]="'btn-postulaaqui-orange btn-icon btn-icon-sm'"
+      [btnIconRouteRight]="'refresh-cw-02'"
+    >
+      Qué hacemos
+    </cygnus-button>
   `;
 
 }

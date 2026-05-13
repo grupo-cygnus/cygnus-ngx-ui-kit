@@ -208,8 +208,8 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   executeGlobalAction(action: any) {
     const selectedIds = this.selectedItems();
     // Buscamos los objetos reales que coinciden con los IDs seleccionados
-    const selectedObjects = this.config().data.filter(item =>
-      selectedIds.has(item[this.idKey])
+    const selectedObjects = this.config().data.filter((item, i) =>
+      selectedIds.has(this.getItemId(item, i))
     );
     action.callback(selectedObjects);
   }
@@ -283,9 +283,9 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
     callback(selectedObjects);
   }
 
-  runRowAction(action: any, item: T, index: number) {
-    if (action.callback) {
-      action.callback(item, index);
+  runRowAction(callback: (item: T, index: number) => void, item: T, index: number) {
+    if (callback) {
+      callback(item, index);
     }
   }
 
