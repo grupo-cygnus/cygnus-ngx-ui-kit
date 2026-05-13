@@ -43,9 +43,30 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   // Debounce timer
   private searchTimer: any;
 
+
   // Helper para obtener la clave del ID (usando la nueva propiedad o 'id' por defecto)
   get idKey(): string {
-    return this.config().rowIdKey || 'id';
+    // 1. Miramos si el usuario definió una clave en la configuración
+    if (this.config().rowIdKey) {
+      // Usamos ?? 'id' para asegurar que si rowIdKey es undefined,
+      // devuelva el texto 'id' como valor por defecto.
+      return this.config().rowIdKey!;
+    }
+    // 2. Si no, miramos si los datos tienen una propiedad 'id' o '_id'
+    const firstItem = this.config().data[0];
+    if (firstItem) {
+      if ('id' in firstItem) return 'id';
+      if ('_id' in firstItem) return '_id';
+    }
+    // 3. Si nada de lo anterior existe, devolvemos una cadena
+    return '__index__'; // señal de que no hay campo ID real
+  }
+
+  // obtiene un identificador único garantizado si no viene en los datos
+  getItemId(item: T, index: number): string | number {
+    if (this.idKey === '__index__') return index;
+    const val = item[this.idKey];
+    return val !== undefined && val !== null ? val : index;
   }
 
   // ── Computed: columnas visibles ───────────────────────────
@@ -72,7 +93,7 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
     const selected = this.selectedItems();
     if (data.length === 0) return false;
     // Comprobamos si el ID de cada fila está en el Set
-    return data.every(item => selected.has(item[this.idKey]));
+    return data.every((item, i) => selected.has(this.getItemId(item, i)));
   });
 
   hasSelection = computed(() => this.selectedItems().size > 0);
@@ -149,8 +170,8 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
 
   // ── Checkboxes ────────────────────────────────────────────
   // __ Método para alternar un solo item
-  toggleItem(item: T) {
-    const id = item[this.idKey];
+  toggleItem(item: T, index: number) {
+    const id = this.getItemId(item, index);
     const newSet = new Set(this.selectedItems());
     if (newSet.has(id)) {
       newSet.delete(id);
@@ -163,15 +184,11 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   // __ Método corregido para seleccionar/desmarcar TODO lo visible
   toggleSelectAll() {
     const visibleData = this.processedData();
-    const visibleIds = visibleData.map(item => item[this.idKey]);
     const newSet = new Set(this.selectedItems());
-
     if (this.allVisibleSelected()) {
-      // DESMARCAR: Quitamos los IDs visibles del Set global
-      visibleIds.forEach(id => newSet.delete(id));
+      visibleData.forEach((item, i) => newSet.delete(this.getItemId(item, i)));
     } else {
-      // MARCAR: Añadimos los IDs visibles al Set
-      visibleIds.forEach(id => newSet.add(id));
+      visibleData.forEach((item, i) => newSet.add(this.getItemId(item, i)));
     }
     this.selectedItems.set(newSet);
   }
@@ -180,9 +197,9 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   const data = this.processedData();
   const selected = this.selectedItems(); // Obtenemos el Set de IDs
 
-  // Usamos i[this.idKey] para comparar el ID del objeto con el Set
-  const allSel = data.every(i => selected.has(i[this.idKey]));
-  const someSel = data.some(i => selected.has(i[this.idKey]));
+  // Usamos this.getItemId(item, i) para comparar el ID del objeto con el Set
+  const allSel = data.every((item, i) => selected.has(this.getItemId(item, i)));
+  const someSel = data.some((item, i) => selected.has(this.getItemId(item, i)));
 
   if (allSel && data.length > 0) return true;
   if (someSel) return 'indeterminate';
@@ -262,13 +279,9 @@ export class CygnusJaviTableComponent<T extends Record<string, any>> implements 
   // ── Acciones ──────────────────────────────────────────────
   runGlobalAction(callback: (items: T[]) => void) {
     const selectedIds = this.selectedItems();
-
-    // Filtramos la data original para obtener los objetos completos
-    // que correspondan a los IDs que tenemos guardados.
-    const selectedObjects = this.config().data.filter(item =>
-      selectedIds.has(item[this.idKey])
+    const selectedObjects = this.config().data.filter((item, i) =>
+      selectedIds.has(this.getItemId(item, i))
     );
-
     if (selectedObjects.length === 0) return;
     callback(selectedObjects);
   }
