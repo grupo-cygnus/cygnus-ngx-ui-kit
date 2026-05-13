@@ -2,6 +2,52 @@
 
   <header class="mb-12">
     <h1 class="text-4xl font-bold">Fonts</h1>
-    <p class="mt-4 text-gray-600 text-md">Se encuentran cargados fonts en la biblioteca listos para usar una  vez la biblioteca es instalada en el proyecto.</p>
+    <p class="mt-4 text-gray-600 text-md">Se encuentran indicados en la biblioteca los fonts que deben ser descargados por el usuario en su proyecto. Estos se pueden ver en "peerDependencies" del package.json de ngx-cygnus-ui.</p>
+
+    <pre>
+      <code [highlight]="peerDependenciesFonts"
+            language="json"
+            lineNumbers></code>
+    </pre>
   </header>
+
+  <section id="cygnus-javi-table-content">
+    <div class="min-h-[140px] rounded-lg border mb-14">
+      <div class="p-4 pb-4">
+        <h2 class="mb-2 text-xl font-semibold">Instalación</h2>
+        <p class="mb-8 text-secondary-600 text-md">
+          Se deben instalar las fuentes que se requieran con npm
+        </p>
+
+        <pre class="bg-gray-800 p-4 text-gray-50 rounded-lg overflow-x-auto font-mono text-sm leading-relaxed">
+          <code class="grid gap-1">
+            <span>npm install &#64;fontsource/dm-sans</span>
+            <span>npm install &#64;fontsource/inter</span>
+            <span>npm install &#64;fontsource/nunito-sans</span>
+          </code>
+        </pre>
+
+        <p class="mt-8 mb-8 text-secondary-600 text-md">
+          O bien agregarlas directamente al package.json del proyecto y ejecutar npm i
+        </p>
+
+        <pre>
+          <code [highlight]="packageJsonFonts"
+                language="json"
+                lineNumbers></code>
+        </pre>
+
+        <p class="mb-8 text-secondary-600 text-md">
+          En styles.css de tu proyecto, debes importar las fuentes y ahí mismo puedes crear variables y clases según sea necesario.
+        </p>
+
+        <pre>
+          <code [highlight]="stylesCss"
+                language="css"
+                lineNumbers></code>
+        </pre>
+
+      </div>
+    </div>
+  </section>
 </main>
