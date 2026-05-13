@@ -32,4 +32,13 @@ export class AccordionContentComponent {
       Ingresa acá el contenido ya sea texto u otros components que se mostrarán dentro del Accordion.
     </cygnus-accordion>
   `;
+
+  accExampleHtml: string = `
+    <cygnus-accordion [accordionTitle]="'Acordeón #1'" >
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit nemo pariatur
+      reiciendis voluptates repellendus, eum sunt architecto quam praesentium?
+      Nesciunt velit consequatur reiciendis expedita natus, hic veniam quisquam quam
+      dolorum.
+    </cygnus-accordion>
+  `;
 }
