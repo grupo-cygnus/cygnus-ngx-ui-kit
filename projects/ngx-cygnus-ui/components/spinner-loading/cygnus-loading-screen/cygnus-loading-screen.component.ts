@@ -7,4 +7,7 @@ import { Component, input } from '@angular/core';
 })
 export class CygnusLoadingScreenComponent {
   mostrarTexto = input<string>('Cargando datos...');
+  textClassColor = input<string>('text-white');
+  borderClassColor = input<string>('border-gray-300');
+  spinnerClassColor = input<string>('border-t-blue-500');
 }
