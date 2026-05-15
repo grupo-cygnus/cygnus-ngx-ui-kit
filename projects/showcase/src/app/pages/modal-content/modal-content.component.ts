@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CygnusButtonComponent, } from 'ngx-cygnus-ui/components/button';
-import { CygnusModalComponent } from 'ngx-cygnus-ui/components/modal';
+import { CygnusModalComponent, CygnusModalTwoNgContentComponent } from 'ngx-cygnus-ui/components/modal';
 import { CygnusCustomTableComponent } from 'ngx-cygnus-ui/components/table';
 
 import * as EMPRESAS from '../../../json/EMPRESAS.json';
@@ -13,6 +13,7 @@ import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
   imports: [
     CygnusButtonComponent,
     CygnusModalComponent,
+    CygnusModalTwoNgContentComponent,
     CygnusCustomTableComponent,
     Highlight, HighlightLineNumbers,
   ],
@@ -23,6 +24,8 @@ export class ModalContentComponent {
   showModalSimple: boolean = false;
   showModalEquis : boolean = false;
   showModalContenido : boolean = false;
+  showModalTwoNgContent : boolean = false;
+  withX : boolean = true;
 
   toggleModalSimple():void {
     this.showModalSimple = !this.showModalSimple;
@@ -33,6 +36,10 @@ export class ModalContentComponent {
 
   toggleModalContenido():void {
     this.showModalContenido = !this.showModalContenido;
+  }
+
+  toggleModalTwoNgContent():void {
+    this.showModalTwoNgContent = !this.showModalTwoNgContent;
   }
 
   EMPRESAS = JSON.parse(JSON.stringify(EMPRESAS)).default;
@@ -212,6 +219,57 @@ export class ModalContentComponent {
         console.log('showEditedData: ', data);
       };
     }
+  `;
+
+  showModalTwoNgContentTs: string = `
+    import { Component } from '@angular/core';
+    import { CygnusButtonComponent, } from 'ngx-cygnus-ui/components/button';
+    import { CygnusModalTwoNgContentComponent } from 'ngx-cygnus-ui/components/modal';
+
+    @Component({
+      selector: 'app-modal-content',
+      imports: [
+        CygnusButtonComponent,
+        CygnusModalTwoNgContentComponent,
+      ],
+      templateUrl: './modal-content.component.html',
+      styleUrl: './modal-content.component.scss'
+    })
+    export class ModalContentComponent {
+
+      showModalTwoNgContent : boolean = false;
+      withX : boolean = true;
+
+      toggleModalTwoNgContent():void {
+        this.showModalTwoNgContent = !this.showModalTwoNgContent;
+      }
+    }
+  `;
+
+  showModalTwoNgContentHtml: string = `
+    <div class="flex items-center justify-center w-full gap-4 mb-4">
+
+      <cygnus-button [btnTypes]="'btn-primary'" (click)="toggleModalTwoNgContent()" >Abrir Modal</cygnus-button>
+
+      <cygnus-modal-two-ng-content
+        [(showModal)]="showModalTwoNgContent"
+        [withX]="withX"
+        [inputMaxW]="'max-w-lg'"
+      >
+        <div modal-title class="flex">
+          Título personalizado&NonBreakingSpace;
+          <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+            <rect width="30" height="30" style="fill:blue;stroke:pink;stroke-width:5;fill-opacity:0.1;stroke-opacity:0.9" />
+          </svg>
+        </div>
+        <div modal-content class="max-w-lg">
+          <p class="pt-4 pb-2">
+            Contenido personalizado.
+          </p>
+        </div>
+      </cygnus-modal-two-ng-content>
+
+    </div>
   `;
 
 }
