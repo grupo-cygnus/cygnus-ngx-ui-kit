@@ -112,6 +112,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/select-search-content/select-search-content.component').then( (c) => c.SelectSearchContentComponent )
   },
   {
+    path: 'spinner-loading',
+    loadComponent: () => import('./pages/spinner-loading-content/spinner-loading-content.component').then( (c) => c.SpinnerLoadingContentComponent )
+  },
+  {
     path: 'tables',
     loadComponent: () => import('./pages/table-content/table-content.component').then( (c) => c.TableContentComponent )
   },
