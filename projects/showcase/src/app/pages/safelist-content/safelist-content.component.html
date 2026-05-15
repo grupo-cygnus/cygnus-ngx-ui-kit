@@ -1,0 +1,42 @@
+<main class="col-span-1 p-4 bg-white lg:col-span-8">
+
+  <header class="mb-12">
+    <h1 class="text-4xl font-bold">Safelist</h1>
+    <p class="mt-4 text-gray-600 text-md">
+      Una vez que se compila Tailwind 4 en la biblioteca, los estilos de las clases de tailwind en uso por la biblioteca quedan definidos, por lo cual si se añade posteriormente una clase que no esté compilada, no se verá el efecto esperado.
+    </p>
+    <p class="mt-4 text-gray-600 text-md">
+      Para que queden compiladas clases de Tailwind 4 que no estén en uso dentro de la biblioteca, se deben definir documentos safelist que incluyan una variedad de clases que podrían ser de uso común durante el desarrollo de variadas aplicaciones.
+    </p>
+    <p class="mt-4 text-gray-600 text-md">
+      El objetivo de una safelist es forzar el compilado de clases que no se estén utilizando en la biblioteca pero muy probablemente se utilicen en el desarrollo de aplicaciones.
+    </p>
+
+  </header>
+
+  <section id="cygnus-tailwind-safelist">
+    <div class="min-h-[140px] rounded-lg border mb-14">
+      <div class="p-4 pb-4">
+        <h2 class="mb-2 text-xl font-semibold">Safelist en ngx-cygnus-ui</h2>
+        <p class="mb-8 text-secondary-600 text-md">
+          En ngx-cygnus-ui/safelist-tailwind se encuentran definidas una variedad de safelist con clases de tailwind que permiten compilar clases que pudieron no haberse utilizado en la biblioteca pero que podrían utilizarse posteriormente en alguna app que use ngx-cygnus-ui. Pueden lucir como el ejemplo siguiente:
+        </p>
+
+        <pre>
+          <code [highlight]="safelistExample"
+                language="html"
+                lineNumbers></code>
+        </pre>
+
+        <p class="mb-8 text-secondary-600 text-md">
+          Durante el desarrollo de un proyecto si notas que añadiste correctamente una clase de tailwind y no ves el efecto esperado, lo más probable es que esa clase no haya sido compilada en la biblioteca y la solución es añadirla a alguno de los safelist o crear uno nuevo en ngx-cygnus-ui/safelist-tailwind, compilar e instalar nuevamente para observar el resultado esperado.
+        </p>
+
+        <p class="mb-8 text-secondary-600 text-md">
+          Crear una safelist variada puede ser un incordio. Se recomienda recurrir a Claude.ai para generar una safelist variada que contenga diversas variables de un tipo de clase. Se recomienda entregarle una safelist para que entienda el formato que debe seguir, ya que a veces en lugar de crear una safelist.html crea una safelist para css que hasta el momento no funcionaron. Otra IA como Gemini puede generar safelist pero no entrega una respuesta completa, te muestra un patrón a seguir para completarlo a mano, lo cual humanamente es muy lento y posibilita mayor probabilidad de errores. Claude.ai genera safelist más completa con una gran variedad de clases de patrones similares según le especifiquen en el prompt.
+        </p>
+
+      </div>
+    </div>
+  </section>
+</main>

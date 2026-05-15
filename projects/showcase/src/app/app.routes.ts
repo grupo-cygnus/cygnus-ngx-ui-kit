@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/fonts-content/fonts-content.component').then( (c) => c.FontsContentComponent )
   },
   {
+    path: 'safelist',
+    loadComponent: () => import('./pages/safelist-content/safelist-content.component').then( (c) => c.SafelistContentComponent )
+  },
+  {
     path: 'accordion',
     loadComponent: () => import('./pages/accordion-content/accordion-content.component').then( (c) => c.AccordionContentComponent )
   },
