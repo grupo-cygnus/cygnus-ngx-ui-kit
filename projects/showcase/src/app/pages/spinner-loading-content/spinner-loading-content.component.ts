@@ -60,4 +60,21 @@ export class SpinnerLoadingContentComponent {
     }
   `;
 
+  tailwindSpinnerHtml: string = `
+    <div class="flex p-4 pb-4">
+      <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-blue-500 rounded-full"></div>
+      <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-success-500 rounded-full"></div>
+      <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-error-500 rounded-full"></div>
+      <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-amber-500 rounded-full"></div>
+      <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-blue-violet-500 rounded-full"></div>
+    </div>
+    <div class="flex p-4 pb-4">
+      <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-blue-500 rounded-full"></div>
+      <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-success-500 rounded-full"></div>
+      <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-error-500 rounded-full"></div>
+      <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-amber-500 rounded-full"></div>
+      <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-blue-violet-500 rounded-full"></div>
+    </div>
+  `;
+
 }

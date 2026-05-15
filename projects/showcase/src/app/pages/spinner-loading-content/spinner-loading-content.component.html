@@ -55,4 +55,34 @@
       </div>
     </div>
   </section>
+
+  <section id="select-search-simple">
+    <div class="min-h-[140px] rounded-lg border mb-14">
+      <div class="p-4 pb-4">
+        <h2 class="mb-2 text-xl font-semibold">Spinner para distintos contextos</h2>
+        <p class="mb-8 text-secondary-600 text-md">
+          Con clases de tailwind puedes implementar tu spinner de diferentes tamaños y colores.
+        </p>
+        <div class="flex p-4 pb-4">
+          <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-blue-500 rounded-full"></div>
+          <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-success-500 rounded-full"></div>
+          <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-error-500 rounded-full"></div>
+          <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-amber-500 rounded-full"></div>
+          <div class="h-12 w-12 animate-spin border-4 border-gray-300 border-t-blue-violet-500 rounded-full"></div>
+        </div>
+        <div class="flex p-4 pb-4">
+          <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-blue-500 rounded-full"></div>
+          <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-success-500 rounded-full"></div>
+          <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-error-500 rounded-full"></div>
+          <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-amber-500 rounded-full"></div>
+          <div class="h-8 w-8 animate-spin border-4 border-gray-300 border-t-blue-violet-500 rounded-full"></div>
+        </div>
+        <pre>
+          <code [highlight]="tailwindSpinnerHtml"
+                language="html"
+                lineNumbers></code>
+        </pre>
+      </div>
+    </div>
+  </section>
 </main>
